@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Parallax Background</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        .parallax {
+            background-image: url('Mags 5 Black.png');
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            height: 100%;
+            width: 100%;
+            position: relative;
+        }
+
+        .parallax-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            /* color: white; */
+            text-align: center;
+        }
+
+        .parallax-content h1 {
+            font-size: 5rem;
+            margin: 0;
+            text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="parallax">
+        <div class="parallax-content">
+            <h1>Parallax Background</h1>
+            <p>Some content here</p>
+        </div>
+    </div>
+
+    <script>
+        window.addEventListener('scroll', function () {
+            const parallax = document.querySelector('.parallax');
+            let offset = window.pageYOffset;
+            parallax.style.backgroundPositionY = offset * 0.7 + 'px';
+        });
+    </script>
+</body>
+
+</html>

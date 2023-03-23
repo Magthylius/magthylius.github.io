@@ -6,27 +6,37 @@
     <style>
         body {
             margin: auto;
-            top: 0;
-			left: 0;
-			right: 0;
-			bottom: 0;
-            padding: 0;
-            height: 100vh;
+            height: 50%;
             overflow: hidden;
             display: flex;
 			justify-content: center;
 			align-items: center;
+            background-color: #212932ff;
         }
 
         #parallax {
+            position: absolute;
+            margin: auto;
+            
+            top:0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+
+            height: 50vh;
+            width: 50vh;
+
             object-fit: contain;
-            position: relative;
-            height: 100vh;
-            width: 100vh;
-            background-image: url('Mags 5 Black.png');
-            background-size: cover;
+
+            background-image: url("Mags 5 White.png");
+            background-size: contain;
+            background-repeat: no-repeat;
             background-position: center;
             transition: transform 0.2s ease-out;
+        }
+
+        #parallax::before {
+            background-color: rgba(255, 0, 0, 0.5);
         }
 
         #parallax:hover {
@@ -42,7 +52,7 @@
         document.addEventListener("mousemove", function (e) {
             var x = e.clientX;
             var y = e.clientY;
-            parallax.style.transform = "translate(-" + x / 50 + "px, -" + y / 50 + "px)";
+            parallax.style.transform = "translate(" + x / 50 + "px, " + y / 50 + "px)";
         });
     </script>
 </body>
