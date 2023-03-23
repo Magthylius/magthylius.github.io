@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Parallax Image</title>
+    <style>
+        body {
+            margin: auto;
+            top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+            padding: 0;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+			justify-content: center;
+			align-items: center;
+        }
+
+        .container {
+            position: relative;
+            height: 35vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+
+        #parallax {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100vh;
+            height: 100vh;
+            object-fit: cover;
+            transform: translate(-50%, -50%);
+            background-image: url('Mags 5 Black.png');
+            will-change: transform;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" id = "parallax">
+        <!-- <img class="parallax-image" src="Mags 5 Black.png" alt="Image"> -->
+    </div>
+    <script>
+        // const parallaxImage = document.querySelector('.parallax-image');
+        // const container = document.querySelector('.container');
+        // const containerRect = container.getBoundingClientRect();
+        // container.addEventListener("mousemove", e => {
+        //     const x = (e.clientX - containerRect.left) / containerRect.width * 2 - 10;
+        //     const y = (e.clientY - containerRect.top) / containerRect.height * 2 - 10;
+        //     const parallaxStrength = 20;
+        //     parallaxImage.style.transform = `translate(${x * parallaxStrength}px, ${y * parallaxStrength}px)`;
+        // });
+
+        var parallax = document.getElementById("parallax");
+            document.addEventListener("mousemove", function (e) {
+                var x = e.clientX;
+                var y = e.clientY;
+                parallax.style.transform = "translate(-" + x / 50 + "px, -" + y / 50 + "px)";
+            });
+    </script>
+</body>
+
+</html>
