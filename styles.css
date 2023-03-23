@@ -27,7 +27,7 @@ body {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    filter: drop-shadow(0px 0 20px #000000aa);
+    filter: brightness(150%) drop-shadow(0px 0 20px #000000aa);
 }
 
 #parallax-bg::before {
