@@ -1,56 +1,60 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<title>Floating Parallax Background Logo</title>
-	<style>
-		body {
-			margin: 0;
-			padding: 0;
-			background-color: #FFF;
-			color: #fff;
-			font-family: Arial, sans-serif;
-			font-size: 16px;
-			line-height: 1.5;
-			height: 100%;
-		}
-		
-		.logo {
-			position: absolute;
-			top: 50%;
-			left: 50%;
-			transform: translate(-50%, -50%);
-			z-index: -1;
-			width: 50vh;
-			height: 50vh;
-			background-image: url('Mags 5 Black.png');
-			background-repeat: no-repeat;
-			background-size: contain;
-			animation: parallax 10s linear infinite;
-			display: flex;
+    <title>Magthylius</title>
+    <style>
+        body {
+            margin: auto;
+            height: 50%;
+            overflow: hidden;
+            display: flex;
 			justify-content: center;
 			align-items: center;
-		}
+            background-color: #212932ff;
+        }
 
-		img {
-			max-width: 100%;
-			max-height: 100%;
-		}
-		
-		@keyframes parallax {
-			from {
-				transform: translate(-50%, -50%) translateZ(0);
-			}
-			to {
-				transform: translate(-50%, -50%) translateZ(-500px);
-			}
-		}
-	</style>
+        #parallax {
+            position: absolute;
+            margin: auto;
+            
+            top:0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+
+            height: 50vh;
+            width: 50vh;
+
+            object-fit: contain;
+
+            background-image: url("Mags 5 White.png");
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            transition: transform 0.2s ease-out;
+        }
+
+        #parallax::before {
+            background-color: rgba(255, 0, 0, 0.5);
+        }
+
+        #parallax:hover {
+            transform: scale(1.1);
+        }
+    </style>
 </head>
+
 <body>
-	<div class="logo">
-		<!--
-		<img src="Mags 5 Black.png" alt="Magthylius' Logo" class="logo">
-		-->
-	</div>
+    <div id="parallax"></div>
+    <script>
+        var parallax = document.getElementById("parallax");
+        document.addEventListener("mousemove", function (e) {
+            var x = e.clientX;
+            var y = e.clientY;
+            parallax.style.transform = "translate(" + x / 50 + "px, " + y / 50 + "px)";
+        });
+    </script>
 </body>
+
 </html>
