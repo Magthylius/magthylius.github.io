@@ -3,53 +3,13 @@
 
 <head>
     <title>Magthylius</title>
-    <style>
-        body {
-            margin: auto;
-            height: 50%;
-            overflow: hidden;
-            display: flex;
-			justify-content: center;
-			align-items: center;
-            background-color: #212932ff;
-        }
-
-        #parallax {
-            position: absolute;
-            margin: auto;
-            
-            top:0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-
-            height: 35vh;
-            width: 35vh;
-
-            object-fit: contain;
-            transition: transform 0.2s ease-out;
-
-            background-image: url("Graphics/MagsSepia.png");
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-            filter: drop-shadow(0px 0 20px #000000aa);
-        }
-
-        #parallax::before {
-            background-color: rgba(255, 0, 0, 0.5);
-        }
-
-        #parallax:hover {
-            transform: scale(1.1);
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-    <div id="parallax"></div>
+    <div id="parallax-bg"></div>
     <script>
-        var parallax = document.getElementById("parallax");
+        var parallax = document.getElementById("parallax-bg");
         document.addEventListener("mousemove", function (e) {
             var x = e.clientX;
             var y = e.clientY;
