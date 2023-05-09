@@ -35,30 +35,65 @@ function BoardRow(props: BoardRowProps) {
   );
 }
 
-function App() {
-  const [squares, setSquares] = useState<string[]>(Array(9).fill("-"));
-  const [isXTurn, setIsXTurn] = useState<boolean>(true);
-
+function Board(props: { isXTurn: boolean, squares: string[], onPlay: (squares: string[]) => void }) {
   function handleClick(index: number) {
     //! Ignore if already has value
-    if (squares[index] !== "-" || calculateWinner(squares) !== "-") return;
+    if (props.squares[index] !== "-" || calculateWinner(props.squares) !== "-") return;
 
-    const nextSquares = squares.slice();
-    nextSquares[index] = isXTurn ? "X" : "O";
-    setSquares(nextSquares);
-    setIsXTurn(!isXTurn);
+    const nextSquares = props.squares.slice();
+    nextSquares[index] = props.isXTurn ? "X" : "O";
+
+    props.onPlay(nextSquares);
   }
 
-  const winner = calculateWinner(squares);
-  const status = winner === "-" ? "Next player: " + (isXTurn ? "X" : "O") : "Winner: " + winner;
+  const winner = calculateWinner(props.squares);
+  const status = winner === "-" ? "Next player: " + (props.isXTurn ? "X" : "O") : "Winner: " + winner;
 
   return (
     <>
       <div className='status'>{status}</div>
-      <BoardRow refData={squares} rowValue={0} onRowClickEvent={handleClick} />
-      <BoardRow refData={squares} rowValue={1} onRowClickEvent={handleClick} />
-      <BoardRow refData={squares} rowValue={2} onRowClickEvent={handleClick} />
+      <BoardRow refData={props.squares} rowValue={0} onRowClickEvent={handleClick} />
+      <BoardRow refData={props.squares} rowValue={1} onRowClickEvent={handleClick} />
+      <BoardRow refData={props.squares} rowValue={2} onRowClickEvent={handleClick} />
     </>
+  );
+}
+
+function Game() {
+  const [history, setHistory] = useState<string[][]>([Array(9).fill("-")])
+  const [currentMove, setCurrentMove] = useState(0);
+
+  const currentSquares = history[currentMove];
+  const isXTurn = currentMove % 2 === 0;
+
+  function handlePlay(nextSquares: string[]) {
+    const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
+    setHistory(nextHistory);
+    setCurrentMove(nextHistory.length - 1);
+  }
+
+  function jumpToMove(nextMove: number) {
+    setCurrentMove(nextMove);
+  }
+
+  const moves = history.map((squares, move) => {
+    const description = move > 0 ? "Go to move #" + move : "Go to game start";
+    return (
+      <li key={move}>
+        <button onClick={() => jumpToMove(move)}>{description}</button>
+      </li>
+    );
+  })
+
+  return (
+    <div className='game'>
+      <div className='game-board'>
+        <Board isXTurn={isXTurn} squares={currentSquares} onPlay={handlePlay} />
+      </div>
+      <div className='game-info'>
+        <ol>{moves}</ol>
+      </div>
+    </div>
   );
 }
 
@@ -88,4 +123,4 @@ function calculateWinner(currentSquares: string[]) {
   return "-";
 }
 
-export default App;
+export default Game;
