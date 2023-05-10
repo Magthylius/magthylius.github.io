@@ -60,6 +60,7 @@ function Board(props: { isXTurn: boolean, squares: string[], onPlay: (squares: s
 function Game() {
   const [history, setHistory] = useState<string[][]>([Array(9).fill("-")])
   const [currentMove, setCurrentMove] = useState(0);
+  const [sortAscending, setSortAscending] = useState<boolean>(true);
 
   const currentSquares = history[currentMove];
   const isXTurn = currentMove % 2 === 0;
@@ -77,13 +78,11 @@ function Game() {
   const moves = history.map((squares, move) => {
     const description = move > 0 ? "Go to move #" + move : "Go to game start";
     return (
-      <div>
-        <li key={move}>
-          <button onClick={() => jumpToMove(move)}>{description}</button>
-        </li>
-      </div>
+      <li key={move}>
+        <button onClick={() => jumpToMove(move)}>{description}</button>
+      </li>
     );
-  })
+  });
 
   return (
     <div className='game'>
@@ -91,9 +90,14 @@ function Game() {
         <Board isXTurn={isXTurn} squares={currentSquares} onPlay={handlePlay} />
       </div>
       <div className='game-info'>
-        <ol>{moves}</ol>
+        <div>
+          Sort moves by <button onClick={() => setSortAscending(!sortAscending)}>{sortAscending ? "Ascending" : "Descending"}</button>
+        </div>
+        <div>
+          <ol>{sortAscending ? moves : moves.reverse()}</ol>
+        </div>
         <div className="game-move-info">
-          You are on move #{history.length}
+          You are on move #{currentMove}
         </div>
       </div>
     </div>
