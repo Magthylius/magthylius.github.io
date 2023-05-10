@@ -1,19 +1,26 @@
 import { useState } from "react";
 
+interface GameEndData {
+  endStatus: string;
+  endReason?: number[];
+}
+
 interface SquareProps {
   squareValue: string;
+  wantsHighlight?: boolean;
   onSquareClickEvent: () => void;
 }
 
 interface BoardRowProps {
   refData: string[];
+  endData?: number[];
   rowValue: number;
   onRowClickEvent: (index: number) => void;
 }
 
 function Square(props: SquareProps) {
   return (
-    <button className="square" onClick={props.onSquareClickEvent}>
+    <button className={props.wantsHighlight ? "square" : "square-highlighted"} onClick={props.onSquareClickEvent}>
       {props.squareValue}
     </button>
   );
@@ -26,9 +33,9 @@ function BoardRow(props: BoardRowProps) {
 
   return (
     <div>
-      <Square squareValue={props.refData[square1Index]} onSquareClickEvent={() => props.onRowClickEvent(square1Index)} />
-      <Square squareValue={props.refData[square2Index]} onSquareClickEvent={() => props.onRowClickEvent(square2Index)} />
-      <Square squareValue={props.refData[square3Index]} onSquareClickEvent={() => props.onRowClickEvent(square3Index)} />
+      <Square squareValue={props.refData[square1Index]} onSquareClickEvent={() => props.onRowClickEvent(square1Index)} wantsHighlight={props.endData?.includes(square1Index)} />
+      <Square squareValue={props.refData[square2Index]} onSquareClickEvent={() => props.onRowClickEvent(square2Index)} wantsHighlight={props.endData?.includes(square2Index)} />
+      <Square squareValue={props.refData[square3Index]} onSquareClickEvent={() => props.onRowClickEvent(square3Index)} wantsHighlight={props.endData?.includes(square3Index)} />
     </div>
   );
 }
@@ -36,7 +43,7 @@ function BoardRow(props: BoardRowProps) {
 function Board(props: { isXTurn: boolean, squares: string[], onPlay: (squares: string[]) => void }) {
   function handleClick(index: number) {
     //! Ignore if already has value
-    if (props.squares[index] !== "-" || calculateWinner(props.squares) !== "-") return;
+    if (props.squares[index] !== "-" || calculateWinner(props.squares).endStatus !== "-") return;
 
     const nextSquares = props.squares.slice();
     nextSquares[index] = props.isXTurn ? "X" : "O";
@@ -44,15 +51,15 @@ function Board(props: { isXTurn: boolean, squares: string[], onPlay: (squares: s
     props.onPlay(nextSquares);
   }
 
-  const winner = calculateWinner(props.squares);
-  const status = winner === "-" ? "Next player: " + (props.isXTurn ? "X" : "O") : "Winner: " + winner;
+  const endData = calculateWinner(props.squares);
+  const status = endData.endStatus === "-" ? "Next player: " + (props.isXTurn ? "X" : "O") : "Winner: " + endData.endStatus;
 
   return (
     <>
       <div className='status'>{status}</div>
-      <BoardRow refData={props.squares} rowValue={0} onRowClickEvent={handleClick} />
-      <BoardRow refData={props.squares} rowValue={1} onRowClickEvent={handleClick} />
-      <BoardRow refData={props.squares} rowValue={2} onRowClickEvent={handleClick} />
+      <BoardRow refData={props.squares} rowValue={0} endData={endData.endReason} onRowClickEvent={handleClick} />
+      <BoardRow refData={props.squares} rowValue={1} endData={endData.endReason} onRowClickEvent={handleClick} />
+      <BoardRow refData={props.squares} rowValue={2} endData={endData.endReason} onRowClickEvent={handleClick} />
     </>
   );
 }
@@ -123,11 +130,18 @@ function calculateWinner(currentSquares: string[]) {
     if (currentSquares[a] === "-") continue;
 
     if (currentSquares[a] === currentSquares[b] && currentSquares[a] === currentSquares[c]) {
-      return currentSquares[a];
+      const endData: GameEndData = {
+        endStatus: currentSquares[a],
+        endReason: [a, b, c]
+      }
+      return endData;
     }
   }
 
-  return "-";
+  const drawData: GameEndData = {
+    endStatus: "-",
+  }
+  return drawData;
 }
 
 export default Game;
