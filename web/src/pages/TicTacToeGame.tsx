@@ -93,18 +93,18 @@ function TicTacToeGame() {
   });
 
   return (
-    <div className='game'>
-      <div className='game-board'>
+    <div id='game' className='label'>
+      <div id='game-board' className='label'>
         <Board isXTurn={isXTurn} squares={currentSquares} onPlay={handlePlay} />
       </div>
-      <div className='game-info'>
+      <div id='game-info' className='label'>
         <div>
           Sort moves by <button onClick={() => setSortAscending(!sortAscending)}>{sortAscending ? "Ascending" : "Descending"}</button>
         </div>
         <div>
           <ol>{sortAscending ? moves : moves.reverse()}</ol>
         </div>
-        <div className="game-move-info">
+        <div id="game-move-info" className='label'>
           You are on move #{currentMove}
         </div>
       </div>
