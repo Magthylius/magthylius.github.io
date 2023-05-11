@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./TicTacToe.css"
 
 interface GameEndData {
   endStatus: string;
@@ -20,7 +21,7 @@ interface BoardRowProps {
 
 function Square(props: SquareProps) {
   return (
-    <button className={props.wantsHighlight ? "square" : "square-highlighted"} onClick={props.onSquareClickEvent}>
+    <button className={props.wantsHighlight ? "square-highlighted" : "square"} onClick={props.onSquareClickEvent}>
       {props.squareValue}
     </button>
   );
