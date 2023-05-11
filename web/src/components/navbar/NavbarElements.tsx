@@ -1,9 +1,8 @@
-export function Nav()
-{
-    return (
-        <div>
-        </div>
-    );
+export function Nav() {
+  return (
+    <div>
+    </div>
+  );
 }
 
 export function NavLink() {
