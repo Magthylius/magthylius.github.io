@@ -1,4 +1,4 @@
-import TicTacToeGame from "../components/games/TicTacToe";
+import TicTacToeGame from "../components/games/TicTacToeGame";
 
 export default function Home() {
   return (

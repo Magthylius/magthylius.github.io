@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./TicTacToe.css"
+import "./TicTacToeGame.css"
 
 interface GameEndData {
   endStatus: string;
