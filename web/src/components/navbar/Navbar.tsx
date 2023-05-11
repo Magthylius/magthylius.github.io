@@ -13,18 +13,9 @@ const Navbar = () => {
               Home
             </button>
           </Link>
-          <div className="navlink">
-            About
-          </div>
-          <div className="navlink">
-            Contact Us
-          </div>
-          <div className="navlink">
-            Blogs
-          </div>
-          <Link to="/signup">
+          <Link to="/tictactoe">
             <button className="navlink">
-              Sign Up
+              TicTacToe
             </button>
           </Link>
         </div>
