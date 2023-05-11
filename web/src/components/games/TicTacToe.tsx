@@ -65,7 +65,7 @@ function Board(props: { isXTurn: boolean, squares: string[], onPlay: (squares: s
   );
 }
 
-function Game() {
+function TicTacToeGame() {
   const [history, setHistory] = useState<string[][]>([Array(9).fill("-")])
   const [currentMove, setCurrentMove] = useState(0);
   const [sortAscending, setSortAscending] = useState<boolean>(true);
@@ -145,4 +145,4 @@ function calculateWinner(currentSquares: string[]) {
   return drawData;
 }
 
-export default Game;
+export default TicTacToeGame;
