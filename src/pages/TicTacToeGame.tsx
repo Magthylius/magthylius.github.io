@@ -6,23 +6,47 @@ interface GameEndData {
   endReason?: number[];
 }
 
+enum SquareStatus {
+  Empty,
+  Selected,
+  Tied,
+  Highlighted
+}
+
 interface SquareProps {
   squareValue?: string;
-  wantsHighlight?: boolean;
+  status: SquareStatus;
   onSquareClickEvent: () => void;
 }
 
 interface BoardRowProps {
   refData: string[];
-  endData?: number[];
+  endData: GameEndData;
   rowValue: number;
   onRowClickEvent: (index: number) => void;
 }
 
 function Square(props: SquareProps) {
+  function getStatusClass(): string {
+    switch (props.status) {
+      case SquareStatus.Selected:
+        return "square-selected";
+
+      case SquareStatus.Tied:
+        return "square-tied";
+
+      case SquareStatus.Highlighted:
+        return "square-highlighted";
+
+      case SquareStatus.Empty:
+      default:
+        return "";
+    }
+  }
+
   return (
     <button
-      className={`square ${props.wantsHighlight ? "highlighted" : props.squareValue ? "selected" : ""}`}
+      className={`square ${getStatusClass()}`}
       onClick={props.onSquareClickEvent}
     >
       {props.squareValue}
@@ -35,11 +59,40 @@ function BoardRow(props: BoardRowProps) {
   const square2Index = props.rowValue * 3 + 1;
   const square3Index = props.rowValue * 3 + 2;
 
+  let square1Status = SquareStatus.Tied;
+  let square2Status = SquareStatus.Tied;
+  let square3Status = SquareStatus.Tied;
+
+  if (props.endData.endStatus !== "TIE") {
+    const hasGameEnded = props.endData.endStatus === "X" || props.endData.endStatus === "O";
+
+    square1Status = props.endData.endReason?.includes(square1Index) ? SquareStatus.Highlighted :
+      props.refData[square1Index] ? SquareStatus.Selected :
+        hasGameEnded ? SquareStatus.Tied : SquareStatus.Empty;
+
+    square2Status = props.endData.endReason?.includes(square2Index) ? SquareStatus.Highlighted :
+      props.refData[square2Index] ? SquareStatus.Selected :
+        hasGameEnded ? SquareStatus.Tied : SquareStatus.Empty;
+
+    square3Status = props.endData.endReason?.includes(square3Index) ? SquareStatus.Highlighted :
+      props.refData[square3Index] ? SquareStatus.Selected :
+        hasGameEnded ? SquareStatus.Tied : SquareStatus.Empty;
+  }
+
   return (
     <div>
-      <Square squareValue={props.refData[square1Index]} onSquareClickEvent={() => props.onRowClickEvent(square1Index)} wantsHighlight={props.endData?.includes(square1Index)} />
-      <Square squareValue={props.refData[square2Index]} onSquareClickEvent={() => props.onRowClickEvent(square2Index)} wantsHighlight={props.endData?.includes(square2Index)} />
-      <Square squareValue={props.refData[square3Index]} onSquareClickEvent={() => props.onRowClickEvent(square3Index)} wantsHighlight={props.endData?.includes(square3Index)} />
+      <Square squareValue={props.refData[square1Index]}
+        status={square1Status}
+        onSquareClickEvent={() => props.onRowClickEvent(square1Index)}
+      />
+      <Square squareValue={props.refData[square2Index]}
+        status={square2Status}
+        onSquareClickEvent={() => props.onRowClickEvent(square2Index)}
+      />
+      <Square squareValue={props.refData[square3Index]}
+        status={square3Status}
+        onSquareClickEvent={() => props.onRowClickEvent(square3Index)}
+      />
     </div>
   );
 }
@@ -47,7 +100,7 @@ function BoardRow(props: BoardRowProps) {
 function Board(props: { isXTurn: boolean, squares: string[], onPlay: (squares: string[]) => void }) {
   function handleClick(index: number) {
     //! Ignore if already has value
-    if (props.squares[index] || calculateWinner(props.squares).endStatus) return;
+    if (props.squares[index] || calculateStatus(props.squares).endStatus) return;
 
     const nextSquares = props.squares.slice();
     nextSquares[index] = props.isXTurn ? "X" : "O";
@@ -55,15 +108,25 @@ function Board(props: { isXTurn: boolean, squares: string[], onPlay: (squares: s
     props.onPlay(nextSquares);
   }
 
-  const endData = calculateWinner(props.squares);
-  const status = endData.endStatus ? "Winner: " + endData.endStatus : "Next player: " + (props.isXTurn ? "X" : "O");
+  const endData = calculateStatus(props.squares);
+  let status = "Winner: " + endData.endStatus;
+
+  switch (endData.endStatus) {
+    case "TIE":
+      status = "Game has tied!";
+      break;
+
+    case null:
+      status = "Next player: " + (props.isXTurn ? "X" : "O");
+      break;
+  }
 
   return (
     <>
       <div className='status'>{status}</div>
-      <BoardRow refData={props.squares} rowValue={0} endData={endData.endReason} onRowClickEvent={handleClick} />
-      <BoardRow refData={props.squares} rowValue={1} endData={endData.endReason} onRowClickEvent={handleClick} />
-      <BoardRow refData={props.squares} rowValue={2} endData={endData.endReason} onRowClickEvent={handleClick} />
+      <BoardRow refData={props.squares} rowValue={0} endData={endData} onRowClickEvent={handleClick} />
+      <BoardRow refData={props.squares} rowValue={1} endData={endData} onRowClickEvent={handleClick} />
+      <BoardRow refData={props.squares} rowValue={2} endData={endData} onRowClickEvent={handleClick} />
     </>
   );
 }
@@ -115,7 +178,7 @@ function TicTacToeGame() {
   );
 }
 
-function calculateWinner(currentSquares: string[]) {
+function calculateStatus(currentSquares: string[]) {
   const matchLines = [
     [0, 1, 2],
     [3, 4, 5],
@@ -142,8 +205,12 @@ function calculateWinner(currentSquares: string[]) {
     }
   }
 
-  const drawData: GameEndData = { endStatus: null }
-  return drawData;
+  //! forEach will not return correctly because it returns the callback, not the whole method
+  for (let i = 0; i < currentSquares.length; i++) {
+    if (!currentSquares[i]) return { endStatus: null };
+  }
+
+  return { endStatus: "TIE" }
 }
 
 export default TicTacToeGame;

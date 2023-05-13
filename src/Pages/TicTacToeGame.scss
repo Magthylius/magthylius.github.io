@@ -1,5 +1,7 @@
 @import "../HeaderStyles";
 
+$tiedColor: #6f829934;
+
 body {
   color: white;
 }
@@ -7,7 +9,7 @@ body {
 .square {
   display: inline-block;
   vertical-align: bottom;
-  
+
   border-color: $primaryColor;
   border-style: solid;
 
@@ -22,10 +24,19 @@ body {
   background-color: #00000000; 
 }
 
-.selected {
+.square-selected {
   background-color: $primaryColorShaded;
+  color: $primaryColor;
 }
 
-.highlighted {
+.square-highlighted {
+  border-color: $primaryColorShaded;
   background-color: rgba(169, 248, 169, 0.404);
+}
+
+.square-tied {
+  border-color: $primaryColorShaded;
+  background-color: $tiedColor;
+
+  color: grey;
 }
