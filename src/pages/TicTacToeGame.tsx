@@ -2,12 +2,12 @@ import { useState } from "react";
 import "./TicTacToeGame.scss"
 
 interface GameEndData {
-  endStatus: string;
+  endStatus: string | null;
   endReason?: number[];
 }
 
 interface SquareProps {
-  squareValue: string;
+  squareValue?: string;
   wantsHighlight?: boolean;
   onSquareClickEvent: () => void;
 }
@@ -22,7 +22,7 @@ interface BoardRowProps {
 function Square(props: SquareProps) {
   return (
     <button
-      className={`square ${props.wantsHighlight ? "highlighted" : props.squareValue !== '-' ? "selected" : ""}`}
+      className={`square ${props.wantsHighlight ? "highlighted" : props.squareValue ? "selected" : ""}`}
       onClick={props.onSquareClickEvent}
     >
       {props.squareValue}
@@ -47,7 +47,7 @@ function BoardRow(props: BoardRowProps) {
 function Board(props: { isXTurn: boolean, squares: string[], onPlay: (squares: string[]) => void }) {
   function handleClick(index: number) {
     //! Ignore if already has value
-    if (props.squares[index] !== "-" || calculateWinner(props.squares).endStatus !== "-") return;
+    if (props.squares[index] || calculateWinner(props.squares).endStatus) return;
 
     const nextSquares = props.squares.slice();
     nextSquares[index] = props.isXTurn ? "X" : "O";
@@ -56,7 +56,7 @@ function Board(props: { isXTurn: boolean, squares: string[], onPlay: (squares: s
   }
 
   const endData = calculateWinner(props.squares);
-  const status = endData.endStatus === "-" ? "Next player: " + (props.isXTurn ? "X" : "O") : "Winner: " + endData.endStatus;
+  const status = endData.endStatus ? "Winner: " + endData.endStatus : "Next player: " + (props.isXTurn ? "X" : "O");
 
   return (
     <>
@@ -69,7 +69,7 @@ function Board(props: { isXTurn: boolean, squares: string[], onPlay: (squares: s
 }
 
 function TicTacToeGame() {
-  const [history, setHistory] = useState<string[][]>([Array(9).fill("-")])
+  const [history, setHistory] = useState<string[][]>([Array(9).fill(null)])
   const [currentMove, setCurrentMove] = useState(0);
   const [sortAscending, setSortAscending] = useState<boolean>(true);
 
@@ -131,7 +131,7 @@ function calculateWinner(currentSquares: string[]) {
     const [a, b, c] = matchLines[i];
 
     //! If empty, it will always fail
-    if (currentSquares[a] === "-") continue;
+    if (!currentSquares[a]) continue;
 
     if (currentSquares[a] === currentSquares[b] && currentSquares[a] === currentSquares[c]) {
       const endData: GameEndData = {
@@ -142,9 +142,7 @@ function calculateWinner(currentSquares: string[]) {
     }
   }
 
-  const drawData: GameEndData = {
-    endStatus: "-",
-  }
+  const drawData: GameEndData = { endStatus: null }
   return drawData;
 }
 

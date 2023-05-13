@@ -5,7 +5,9 @@ body {
 }
 
 .square {
-  border-radius: 0px;
+  display: inline-block;
+  vertical-align: bottom;
+  
   border-color: $primaryColor;
   border-style: solid;
 
