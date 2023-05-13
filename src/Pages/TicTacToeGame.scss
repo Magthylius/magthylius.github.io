@@ -1,0 +1,29 @@
+@import "../HeaderStyles";
+
+body {
+  color: white;
+}
+
+.square {
+  border-radius: 0px;
+  border-color: $primaryColor;
+  border-style: solid;
+
+  width: 100px;
+  height: 100px;
+  margin: 1px;
+  
+  color: white;
+  font-size: larger;
+  font-weight: 600;
+
+  background-color: #00000000; 
+}
+
+.selected {
+  background-color: $primaryColorShaded;
+}
+
+.highlighted {
+  background-color: rgba(169, 248, 169, 0.404);
+}
