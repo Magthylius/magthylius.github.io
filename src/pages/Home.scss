@@ -1,3 +1,5 @@
+$test: green;
+
 body {
     margin: auto;
     height: 50%;
@@ -23,7 +25,7 @@ body {
     object-fit: contain;
     transition: transform 0.2s ease-out;
 
-    background-image: url("Graphics/MagsSepia.png");
+    background-image: url("../Graphics/MagsSepia.png");
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -39,7 +41,7 @@ body {
 }
 
 #parallax-label {
-    color:#9c927e;
+    color: #9c927e;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 25px;
     letter-spacing: 4px;
