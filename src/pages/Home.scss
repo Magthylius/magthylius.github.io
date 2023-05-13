@@ -1,4 +1,5 @@
-$test: green;
+$primaryColor: #9c927e;
+$bgColor: #212932;
 
 body {
   margin: auto;
@@ -7,7 +8,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #212932ff;
+  background-color: $bgColor;
 }
 
 #parallax-bg {
@@ -32,16 +33,12 @@ body {
   filter: brightness(150%) drop-shadow(0px 0 20px #000000aa);
 }
 
-#parallax-bg::before {
-  background-color: rgba(255, 0, 0, 0.5);
-}
-
 #parallax-bg:hover {
-  transform: scale(1.1);
+  //transform: scale(1.05);
 }
 
 #parallax-label {
-  color: #9c927e;
+  color: $primaryColor;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 25px;
   letter-spacing: 4px;
@@ -58,8 +55,4 @@ body {
   text-align: center;
 
   filter: drop-shadow(0px 0 1px #000000aa);
-}
-
-#parallax-label:hover {
-  transform: scale(1.1);
 }
