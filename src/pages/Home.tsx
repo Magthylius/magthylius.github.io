@@ -20,7 +20,10 @@ export default function Home() {
 
     const handleMouseMove = (event: MouseEvent) => {
       const offsetMousePos: Vector2 = { x: event.clientX - halfWindowSize.x, y: event.clientY - halfWindowSize.y };
-      setCenterNormalizedMousePos({ x: offsetMousePos.x / windowSize.x, y: offsetMousePos.y / windowSize.y });
+      const centerizedMousePos: Vector2 = { x: offsetMousePos.x / windowSize.x, y: offsetMousePos.y / windowSize.y };
+      const magnitude: number = Math.sqrt(Math.pow(centerizedMousePos.x, 2) + Math.pow(centerizedMousePos.y, 2));
+
+      setCenterNormalizedMousePos({ x: centerizedMousePos.x / magnitude, y: centerizedMousePos.y / magnitude });
     };
 
     window.addEventListener("mousemove", handleMouseMove);
