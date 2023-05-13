@@ -7,8 +7,8 @@ interface Vector2 {
 }
 
 export default function Home() {
-  const PARALLAX_MOVE_RANGE: number = 50;
-  const PARALLAX_HOVER_SCALE: number = 1.1;
+  const PARALLAX_MOVE_RANGE: number = 25;
+  const PARALLAX_HOVER_SCALE: number = 1.05;
 
   const [centerNormalizedMousePos, setCenterNormalizedMousePos] = useState<Vector2>({ x: 0, y: 0 });
   const [isHoveringLogo, setIsHoveringLogo] = useState<boolean>(false);
