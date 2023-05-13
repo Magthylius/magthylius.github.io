@@ -109,7 +109,7 @@ function Board(props: { isXTurn: boolean, squares: string[], onPlay: (squares: s
   }
 
   const endData = calculateStatus(props.squares);
-  let status = "Winner: " + endData.endStatus;
+  let status = `Game has ended! '${endData.endStatus}' has won!`;
 
   switch (endData.endStatus) {
     case "TIE":
@@ -117,16 +117,18 @@ function Board(props: { isXTurn: boolean, squares: string[], onPlay: (squares: s
       break;
 
     case null:
-      status = "Next player: " + (props.isXTurn ? "X" : "O");
+      status = "Next player - " + (props.isXTurn ? "X" : "O");
       break;
   }
 
+  status = status.toUpperCase();
+
   return (
     <>
-      <div className='status'>{status}</div>
       <BoardRow refData={props.squares} rowValue={0} endData={endData} onRowClickEvent={handleClick} />
       <BoardRow refData={props.squares} rowValue={1} endData={endData} onRowClickEvent={handleClick} />
       <BoardRow refData={props.squares} rowValue={2} endData={endData} onRowClickEvent={handleClick} />
+      <div className='status'>{status}</div>
     </>
   );
 }
@@ -164,14 +166,15 @@ function TicTacToeGame() {
         <Board isXTurn={isXTurn} squares={currentSquares} onPlay={handlePlay} />
       </div>
       <div id='game-info' className='label'>
-        <div>
+        <div id="game-meta-info" className='label'>
+          <p>This is <b>MOVE #{currentMove}.</b></p>
+          <p>'X' has won <b>0 rounds</b>, while 'O' has won <b>0 rounds</b>.</p>
+        </div>
+        <div id='game-history'>
           Sort moves by <button onClick={() => setSortAscending(!sortAscending)}>{sortAscending ? "Ascending" : "Descending"}</button>
-        </div>
-        <div>
-          <ol>{sortAscending ? moves : moves.reverse()}</ol>
-        </div>
-        <div id="game-move-info" className='label'>
-          You are on move #{currentMove}
+          <div>
+            <ol>{sortAscending ? moves : moves.reverse()}</ol>
+          </div>
         </div>
       </div>
     </div>

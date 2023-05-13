@@ -1,10 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import "./Home.scss"
-
-interface Vector2 {
-  x: number,
-  y: number
-}
+import { Vector2 } from "../HeaderInterfaces"
 
 export default function Home() {
   const PARALLAX_MOVE_RANGE: number = 25;
