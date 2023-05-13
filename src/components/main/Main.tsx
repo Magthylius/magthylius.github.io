@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 
-import Home from '../../pages/Home';
-import TicTacToeGame from '../../pages/TicTacToeGame';
+import Home from '../../Pages/Home';
+import TicTacToeGame from '../../Pages/TicTacToeGame';
 
 const Main = () => {
   return (
