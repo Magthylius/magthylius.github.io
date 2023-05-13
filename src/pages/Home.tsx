@@ -7,7 +7,11 @@ interface Vector2 {
 }
 
 export default function Home() {
+  const PARALLAX_MOVE_RANGE: number = 50;
+  const PARALLAX_HOVER_SCALE: number = 1.1;
+
   const [centerNormalizedMousePos, setCenterNormalizedMousePos] = useState<Vector2>({ x: 0, y: 0 });
+  const [isHoveringLogo, setIsHoveringLogo] = useState<boolean>(false);
   const refWindowSize = useRef([window.innerWidth, window.innerHeight]);
 
   useEffect(() => {
@@ -28,8 +32,14 @@ export default function Home() {
 
   return (
     <div id="parallax-bg"
+      onMouseEnter={() => setIsHoveringLogo(true)}
+      onMouseLeave={() => setIsHoveringLogo(false)}
       style={
-        { transform: `translate(${centerNormalizedMousePos.x * 50}px, ${centerNormalizedMousePos.y * 50}px)` }
+        { 
+          transform: 
+            `translate(${centerNormalizedMousePos.x * PARALLAX_MOVE_RANGE}px, ${centerNormalizedMousePos.y * PARALLAX_MOVE_RANGE}px)
+            scale(${isHoveringLogo ? PARALLAX_HOVER_SCALE : 1})` 
+        }
       }
     >
       <div>
