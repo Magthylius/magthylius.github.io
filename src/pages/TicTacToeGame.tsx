@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./TicTacToeGame.scss"
+import { Vector2 } from "../HeaderInterfaces";
 
 interface GameEndData {
   endStatus: string | null;
@@ -97,7 +98,7 @@ function BoardRow(props: BoardRowProps) {
   );
 }
 
-function Board(props: { isXTurn: boolean, squares: string[], onPlay: (squares: string[]) => void }) {
+function Board(props: { isXTurn: boolean, squares: string[], onPlay: (squares: string[]) => void, onGameEnd: (winner: string) => void }) {
   function handleClick(index: number) {
     //! Ignore if already has value
     if (props.squares[index] || calculateStatus(props.squares).endStatus) return;
@@ -119,6 +120,11 @@ function Board(props: { isXTurn: boolean, squares: string[], onPlay: (squares: s
     case null:
       status = "Next player - " + (props.isXTurn ? "X" : "O");
       break;
+
+    case "X":
+    case "O":
+      props.onGameEnd(endData.endStatus);
+      break;
   }
 
   status = status.toUpperCase();
@@ -134,7 +140,9 @@ function Board(props: { isXTurn: boolean, squares: string[], onPlay: (squares: s
 }
 
 function TicTacToeGame() {
-  const [history, setHistory] = useState<string[][]>([Array(9).fill(null)])
+  //! X is 'X', Y is 'O'
+  const [winCount, setWinCount] = useState<Vector2>({ x: 0, y: 0 });
+  const [history, setHistory] = useState<string[][]>([Array(9).fill(null)]);
   const [currentMove, setCurrentMove] = useState(0);
   const [sortAscending, setSortAscending] = useState<boolean>(true);
 
@@ -145,6 +153,20 @@ function TicTacToeGame() {
     const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
     setHistory(nextHistory);
     setCurrentMove(nextHistory.length - 1);
+  }
+
+  function handleGameEnd(winner: string) {
+    switch (winner) {
+      case "X":
+        winCount.x++;
+        break;
+
+      case "O":
+        winCount.y++;
+        break;
+    }
+    setWinCount(winCount);
+    console.log(`win count ${winCount.x}, ${winCount.y}}`)
   }
 
   function jumpToMove(nextMove: number) {
@@ -163,12 +185,12 @@ function TicTacToeGame() {
   return (
     <div id='game' className='label'>
       <div id='game-board' className='label'>
-        <Board isXTurn={isXTurn} squares={currentSquares} onPlay={handlePlay} />
+        <Board isXTurn={isXTurn} squares={currentSquares} onPlay={handlePlay} onGameEnd={handleGameEnd} />
       </div>
       <div id='game-info' className='label'>
         <div id="game-meta-info" className='label'>
           <p>This is <b>MOVE #{currentMove}.</b></p>
-          <p>'X' has won <b>0 rounds</b>, while 'O' has won <b>0 rounds</b>.</p>
+          <p>'X' has won <b>{winCount.x} rounds</b>, while 'O' has won <b>{winCount.y} rounds</b>.</p>
         </div>
         <div id='game-history'>
           Sort moves by <button onClick={() => setSortAscending(!sortAscending)}>{sortAscending ? "Ascending" : "Descending"}</button>
