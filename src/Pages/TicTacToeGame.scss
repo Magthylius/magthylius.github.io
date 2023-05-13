@@ -6,6 +6,29 @@ body {
   color: white;
 }
 
+#game {
+  margin-top: 100px;
+}
+
+#game-info {
+  width: 100%;
+  align-items: center;
+}
+
+#game-meta-info {
+  text-align: right;
+  width: 50%;
+  float: right;
+
+  font-size: larger;
+}
+
+#game-history {
+  text-align: left;
+  width: 50%;
+  float: left;    
+}
+
 .square {
   display: inline-block;
   vertical-align: bottom;
@@ -39,4 +62,9 @@ body {
   background-color: $tiedColor;
 
   color: grey;
+}
+
+.status {
+  margin: 50px;
+  font-size: large;
 }
