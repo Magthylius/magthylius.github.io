@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./TicTacToeGame.scss"
 import { Vector2 } from "../HeaderInterfaces";
 
@@ -120,12 +120,16 @@ function Board(props: { isXTurn: boolean, squares: string[], onPlay: (squares: s
     case null:
       status = "Next player - " + (props.isXTurn ? "X" : "O");
       break;
-
-    case "X":
-    case "O":
-      props.onGameEnd(endData.endStatus);
-      break;
   }
+
+  useEffect(() => {
+    switch (endData.endStatus) {
+      case "X":
+      case "O":
+        props.onGameEnd(endData.endStatus);
+        break;
+    }
+  }, [props, endData.endStatus])
 
   status = status.toUpperCase();
 
@@ -166,7 +170,7 @@ function TicTacToeGame() {
         break;
     }
     setWinCount(winCount);
-    console.log(`win count ${winCount.x}, ${winCount.y}}`)
+    console.log(`win count ${winCount.x}, ${winCount.y}`)
   }
 
   function jumpToMove(nextMove: number) {
@@ -190,6 +194,7 @@ function TicTacToeGame() {
       <div id='game-info' className='label'>
         <div id="game-meta-info" className='label'>
           <p>This is <b>MOVE #{currentMove}.</b></p>
+          {/* TODO: winCount does not update after set state, fix this! */}
           <p>'X' has won <b>{winCount.x} rounds</b>, while 'O' has won <b>{winCount.y} rounds</b>.</p>
         </div>
         <div id='game-history'>
