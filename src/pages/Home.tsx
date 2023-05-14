@@ -4,10 +4,10 @@ import "./Home.scss"
 
 export default function Home() {
   const PARALLAX_MOVE_RANGE: number = 25;
-  const PARALLAX_HOVER_SCALE: number = 1.05;
+  const PARALLAX_SCALE_SIZE: number = 1.05;
 
   const [centerNormalizedMousePos, setCenterNormalizedMousePos] = useState<Vector2>({ x: 0, y: 0 });
-  const [isHoveringLogo, setIsHoveringLogo] = useState<boolean>(false);
+  const [wantsScaledLogo, setWantsScaledLogo] = useState<boolean>(false);
   const [logoClickCount, setLogoClickCount] = useState<number>(0);
   const refWindowSize = useRef([window.innerWidth, window.innerHeight]);
 
@@ -36,16 +36,16 @@ export default function Home() {
 
   return (
     <div id="parallax-bg"
-      onMouseEnter={() => setIsHoveringLogo(true)}
-      onMouseLeave={() => setIsHoveringLogo(false)}
-      onMouseDown={() => setIsHoveringLogo(false)}
-      onMouseUp={() => setIsHoveringLogo(true)}
+      onMouseEnter={() => setWantsScaledLogo(true)}
+      onMouseLeave={() => setWantsScaledLogo(false)}
+      onMouseDown={() => setWantsScaledLogo(false)}
+      onMouseUp={() => setWantsScaledLogo(true)}
       onClick={handleOnLogoClick}
       style={
         { 
           transform: 
             `translate(${centerNormalizedMousePos.x * PARALLAX_MOVE_RANGE}px, ${centerNormalizedMousePos.y * PARALLAX_MOVE_RANGE}px)
-            scale(${isHoveringLogo ? PARALLAX_HOVER_SCALE : 1})` 
+            scale(${wantsScaledLogo ? PARALLAX_SCALE_SIZE : 1})` 
         }
       }
     >
