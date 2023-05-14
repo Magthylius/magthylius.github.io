@@ -1,3 +1,9 @@
 $primaryColor: #9c927e;
 $primaryColorShaded: #9c927e7a;
 $bgColor: #212932;
+
+$transparentColor: #00000000;
+
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Wix+Madefor+Display&display=swap');
+$bodyFont:  'Wix Madefor Display', 'Lato', sans-serif;
