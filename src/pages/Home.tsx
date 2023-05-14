@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import "./Home.scss"
 import { Vector2 } from "../HeaderInterfaces"
+import "./Home.scss"
 
 export default function Home() {
   const PARALLAX_MOVE_RANGE: number = 25;
@@ -8,6 +8,7 @@ export default function Home() {
 
   const [centerNormalizedMousePos, setCenterNormalizedMousePos] = useState<Vector2>({ x: 0, y: 0 });
   const [isHoveringLogo, setIsHoveringLogo] = useState<boolean>(false);
+  const [logoClickCount, setLogoClickCount] = useState<number>(0);
   const refWindowSize = useRef([window.innerWidth, window.innerHeight]);
 
   useEffect(() => {
@@ -29,10 +30,17 @@ export default function Home() {
     }
   }, []);
 
+  function handleOnLogoClick() {
+    setLogoClickCount(logoClickCount + 1);
+  }
+
   return (
     <div id="parallax-bg"
       onMouseEnter={() => setIsHoveringLogo(true)}
       onMouseLeave={() => setIsHoveringLogo(false)}
+      onMouseDown={() => setIsHoveringLogo(false)}
+      onMouseUp={() => setIsHoveringLogo(true)}
+      onClick={handleOnLogoClick}
       style={
         { 
           transform: 
@@ -41,10 +49,11 @@ export default function Home() {
         }
       }
     >
-      <div>
-        <p id="parallax-label">
-          MAGTHYLIUS<br />
-        </p>
+      <div id="parallax-label">
+        MAGTHYLIUS
+        <div id="clickcount">
+          {logoClickCount <= 0 ? "" : `You have clicked me ${logoClickCount} time${logoClickCount === 1 ? "" : "s"}!`}
+        </div>
       </div>
     </div>
   );
