@@ -6,6 +6,12 @@ body {
   color: white;
 }
 
+ol {
+  list-style: none;
+  padding-left: 0px;
+  list-style-position: outside;
+}
+
 #game {
   margin-top: 100px;
 }
@@ -17,17 +23,8 @@ body {
 }
 
 #game-meta-info {
-  //text-align: right;
-  //width: 50%;
-  //float: right;
 
   font-size: larger;
-}
-
-#game-history {
-  //text-align: left;
-  //width: 50%;
-  //float: left;
 }
 
 #restart-button {
@@ -56,16 +53,19 @@ body {
   font-weight: 600;
 
   background-color: #00000000;
+  cursor: pointer;
 }
 
 .square-selected {
   background-color: $primaryColorShaded;
   color: $primaryColor;
+  cursor: default;
 }
 
 .square-highlighted {
   border-color: $primaryColorShaded;
   background-color: rgba(169, 248, 169, 0.404);
+  cursor: default;
 }
 
 .square-tied {
@@ -73,6 +73,7 @@ body {
   background-color: $tiedColor;
 
   color: grey;
+  cursor: default;
 }
 
 .status {
