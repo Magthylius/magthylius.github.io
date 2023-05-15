@@ -27,6 +27,14 @@ interface BoardRowProps {
   onRowClickEvent: (index: number) => void;
 }
 
+interface BoardProps {
+  isXTurn: boolean,
+  hasGameEnded: boolean,
+  squares: string[],
+  onPlay: (squares: string[]) => void,
+  onGameEnd: (winner: string) => void
+}
+
 function Square(props: SquareProps) {
   function getStatusClass(): string {
     switch (props.status) {
@@ -98,8 +106,10 @@ function BoardRow(props: BoardRowProps) {
   );
 }
 
-function Board(props: { isXTurn: boolean, squares: string[], onPlay: (squares: string[]) => void, onGameEnd: (winner: string) => void }) {
+function Board(props: BoardProps) {
   function handleClick(index: number) {
+    if (props.hasGameEnded) return;
+
     //! Ignore if already has value
     if (props.squares[index] || calculateStatus(props.squares).endStatus) return;
 
@@ -149,7 +159,7 @@ function TicTacToeGame() {
   const [currentMove, setCurrentMove] = useState(0);
   const [sortAscending, setSortAscending] = useState<boolean>(true);
 
-  const [gameHasEnded, setGameHasEnded] = useState<boolean>(false);
+  const [hasGameEnded, setHasGameEnded] = useState<boolean>(false);
 
   const currentSquares = history[currentMove];
   const isXTurn = currentMove % 2 === 0;
@@ -161,8 +171,8 @@ function TicTacToeGame() {
   }
 
   function handleGameEnd(winner: string) {
-    if (gameHasEnded) return;
-    setGameHasEnded(true);
+    if (hasGameEnded) return;
+    setHasGameEnded(true);
 
     switch (winner) {
       case "X":
@@ -178,7 +188,7 @@ function TicTacToeGame() {
   }
 
   function handleGameRestart() {
-    setGameHasEnded(false);
+    setHasGameEnded(false);
     setHistory([Array(9).fill(null)]);
     setCurrentMove(0)
   }
@@ -199,8 +209,8 @@ function TicTacToeGame() {
   return (
     <div id='game' className='label'>
       <div id='game-board' className='label'>
-        <Board isXTurn={isXTurn} squares={currentSquares} onPlay={handlePlay} onGameEnd={handleGameEnd} />
-        {!gameHasEnded ? null :
+        <Board isXTurn={isXTurn} hasGameEnded={hasGameEnded} squares={currentSquares} onPlay={handlePlay} onGameEnd={handleGameEnd} />
+        {!hasGameEnded ? null :
           <button id='restart-button' className='label' onClick={handleGameRestart}>
             Restart Game
           </button>
@@ -208,7 +218,7 @@ function TicTacToeGame() {
       </div>
       <div id='game-info' className='label'>
         <div id='game-meta-info' className='label'>
-          <p>This is <b>MOVE #{currentMove}.</b></p>
+          <p>This {hasGameEnded ? "was" : "is"} <b>move {currentMove + 1}.</b></p>
           <p>'X' has won <b>{winCount.x} rounds</b>, while 'O' has won <b>{winCount.y} rounds</b>.</p>
         </div>
         <div id='game-history'>
