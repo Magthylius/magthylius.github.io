@@ -138,7 +138,7 @@ function Board(props: { isXTurn: boolean, squares: string[], onPlay: (squares: s
       <BoardRow refData={props.squares} rowValue={0} endData={endData} onRowClickEvent={handleClick} />
       <BoardRow refData={props.squares} rowValue={1} endData={endData} onRowClickEvent={handleClick} />
       <BoardRow refData={props.squares} rowValue={2} endData={endData} onRowClickEvent={handleClick} />
-      <div className='status'>{status}</div>
+      <div className='status label'>{status}</div>
     </>
   );
 }
@@ -202,13 +202,13 @@ function TicTacToeGame() {
       <div id='game-board' className='label'>
         <Board isXTurn={isXTurn} squares={currentSquares} onPlay={handlePlay} onGameEnd={handleGameEnd} />
         {!gameHasEnded ? null :
-          <button onClick={handleGameRestart}>
-            Restart
+          <button id='restart-button' className='label' onClick={handleGameRestart}>
+            Restart Game
           </button>
         }
       </div>
       <div id='game-info' className='label'>
-        <div id="game-meta-info" className='label'>
+        <div id='game-meta-info' className='label'>
           <p>This is <b>MOVE #{currentMove}.</b></p>
           <p>'X' has won <b>{winCount.x} rounds</b>, while 'O' has won <b>{winCount.y} rounds</b>.</p>
         </div>
