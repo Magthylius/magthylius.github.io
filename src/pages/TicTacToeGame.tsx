@@ -198,7 +198,9 @@ function TicTacToeGame() {
   }
 
   const moves = history.map((squares, move) => {
-    const description = move > 0 ? "Go to move #" + move : "Go to game start";
+    if (move <= 0) return null;
+    const description = "Go to move #" + move;
+
     return (
       <li key={move}>
         <button onClick={() => jumpToMove(move)}>{description}</button>
@@ -218,7 +220,7 @@ function TicTacToeGame() {
       </div>
       <div id='game-info' className='label'>
         <div id='game-meta-info' className='label'>
-          <p>This {hasGameEnded ? "was" : "is"} <b>move {currentMove + 1}.</b></p>
+          <p>This {hasGameEnded ? "was" : "is"} <b>move {currentMove + (hasGameEnded ? 0 : 1)}.</b></p>
           <p>'X' has won <b>{winCount.x} rounds</b>, while 'O' has won <b>{winCount.y} rounds</b>.</p>
         </div>
         <div id='game-history'>
