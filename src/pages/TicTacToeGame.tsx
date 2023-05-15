@@ -150,6 +150,8 @@ function TicTacToeGame() {
   const [currentMove, setCurrentMove] = useState(0);
   const [sortAscending, setSortAscending] = useState<boolean>(true);
 
+  const [gameHasEnded, setGameHasEnded] = useState<boolean>(false);
+
   const currentSquares = history[currentMove];
   const isXTurn = currentMove % 2 === 0;
 
@@ -160,6 +162,9 @@ function TicTacToeGame() {
   }
 
   function handleGameEnd(winner: string) {
+    if (gameHasEnded) return;
+    setGameHasEnded(true);
+
     switch (winner) {
       case "X":
         winCount.x++;
@@ -169,8 +174,14 @@ function TicTacToeGame() {
         winCount.y++;
         break;
     }
-    setWinCount(winCount);
-    console.log(`win count ${winCount.x}, ${winCount.y}`)
+
+    setWinCount({ x: winCount.x, y: winCount.y });
+  }
+
+  function handleGameRestart() {
+    setGameHasEnded(false);
+    setHistory([Array(9).fill(null)]);
+    setCurrentMove(0)
   }
 
   function jumpToMove(nextMove: number) {
@@ -190,11 +201,15 @@ function TicTacToeGame() {
     <div id='game' className='label'>
       <div id='game-board' className='label'>
         <Board isXTurn={isXTurn} squares={currentSquares} onPlay={handlePlay} onGameEnd={handleGameEnd} />
+        {!gameHasEnded ? null :
+          <button onClick={handleGameRestart}>
+            Restart
+          </button>
+        }
       </div>
       <div id='game-info' className='label'>
         <div id="game-meta-info" className='label'>
           <p>This is <b>MOVE #{currentMove}.</b></p>
-          {/* TODO: winCount does not update after set state, fix this! */}
           <p>'X' has won <b>{winCount.x} rounds</b>, while 'O' has won <b>{winCount.y} rounds</b>.</p>
         </div>
         <div id='game-history'>
