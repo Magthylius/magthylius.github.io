@@ -75,6 +75,8 @@
 
 //! Ignore if already has value
 
+//! TODO: Fix normalization
+
 //! X is 'X', Y is 'O'
 
 //! forEach will not return correctly because it returns the callback, not the whole method
