@@ -118,7 +118,7 @@ function Board(props: { isXTurn: boolean, squares: string[], onPlay: (squares: s
       break;
 
     case null:
-      status = "Next player - " + (props.isXTurn ? "X" : "O");
+      status = "It is " + (props.isXTurn ? "X" : "O") + "'s turn.";
       break;
   }
 
@@ -131,8 +131,6 @@ function Board(props: { isXTurn: boolean, squares: string[], onPlay: (squares: s
         break;
     }
   }, [props, endData.endStatus])
-
-  status = status.toUpperCase();
 
   return (
     <>
