@@ -124,6 +124,7 @@ function Board(props: { isXTurn: boolean, squares: string[], onPlay: (squares: s
 
   useEffect(() => {
     switch (endData.endStatus) {
+      case "TIE":
       case "X":
       case "O":
         props.onGameEnd(endData.endStatus);
