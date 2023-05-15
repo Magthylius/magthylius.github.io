@@ -3,10 +3,10 @@ import { Vector2 } from "../HeaderInterfaces"
 import "./Home.scss"
 
 export default function Home() {
-  const PARALLAX_MOVE_RANGE: number = 25;
+  const PARALLAX_MOVE_RANGE: number = 50;
   const PARALLAX_SCALE_SIZE: number = 1.05;
 
-  const [centerNormalizedMousePos, setCenterNormalizedMousePos] = useState<Vector2>({ x: 0, y: 0 });
+  const [logoTranslationPos, setLogoTranslationPos] = useState<Vector2>({ x: 0, y: 0 });
   const [wantsScaledLogo, setWantsScaledLogo] = useState<boolean>(false);
   const [logoClickCount, setLogoClickCount] = useState<number>(0);
   const refWindowSize = useRef([window.innerWidth, window.innerHeight]);
@@ -17,10 +17,16 @@ export default function Home() {
 
     const handleMouseMove = (event: MouseEvent) => {
       const offsetMousePos: Vector2 = { x: event.clientX - halfWindowSize.x, y: event.clientY - halfWindowSize.y };
-      const centerizedMousePos: Vector2 = { x: offsetMousePos.x / windowSize.x, y: offsetMousePos.y / windowSize.y };
-      const magnitude: number = Math.sqrt(Math.pow(centerizedMousePos.x, 2) + Math.pow(centerizedMousePos.y, 2));
+      const magnitude: number = Math.sqrt(Math.pow(offsetMousePos.x, 2) + Math.pow(offsetMousePos.y, 2));
 
-      setCenterNormalizedMousePos({ x: centerizedMousePos.x / magnitude, y: centerizedMousePos.y / magnitude });
+      if (magnitude < PARALLAX_MOVE_RANGE)
+        setLogoTranslationPos({ x: offsetMousePos.x, y: offsetMousePos.y });
+      else
+      {
+        //! Normalizes it and mults with move range
+        const moveRange = magnitude / PARALLAX_MOVE_RANGE;
+        setLogoTranslationPos({ x: offsetMousePos.x / moveRange, y: offsetMousePos.y / moveRange });
+      }
     };
 
     window.addEventListener("mousemove", handleMouseMove);
@@ -44,7 +50,7 @@ export default function Home() {
       style={
         { 
           transform: 
-            `translate(${centerNormalizedMousePos.x * PARALLAX_MOVE_RANGE}px, ${centerNormalizedMousePos.y * PARALLAX_MOVE_RANGE}px)
+            `translate(${logoTranslationPos.x}px, ${logoTranslationPos.y}px)
             scale(${wantsScaledLogo ? PARALLAX_SCALE_SIZE : 1})` 
         }
       }
