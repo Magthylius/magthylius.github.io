@@ -23,8 +23,12 @@ ol {
 }
 
 #game-meta-info {
-
   font-size: larger;
+}
+
+#game-history {
+  margin-top: 3rem;
+  margin-bottom: 0.5rem;
 }
 
 #restart-button {
@@ -35,6 +39,30 @@ ol {
 #restart-button:hover {
   @include transparent-button-hover;
   font-size: large;
+}
+
+#move-button {
+  color: $primaryColor;
+  background-color: $transparentColor;
+
+  font-family: $bodyFont;
+  font-size: 20px;
+
+  margin: 0.5rem;
+  width: 3rem;
+  height: 3rem;
+
+  border-style: solid;
+  border-color: $primaryColor;
+
+  cursor: pointer;
+}
+
+#move-button:hover {
+  color: $bgColor;
+  background-color: $primaryColor;
+
+  cursor: pointer;
 }
 
 .square {

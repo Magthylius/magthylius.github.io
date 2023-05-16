@@ -157,8 +157,6 @@ function TicTacToeGame() {
   const [winCount, setWinCount] = useState<Vector2>({ x: 0, y: 0 });
   const [history, setHistory] = useState<string[][]>([Array(9).fill(null)]);
   const [currentMove, setCurrentMove] = useState(0);
-  const [sortAscending, setSortAscending] = useState<boolean>(true);
-
   const [hasGameEnded, setHasGameEnded] = useState<boolean>(false);
 
   const currentSquares = history[currentMove];
@@ -199,12 +197,10 @@ function TicTacToeGame() {
 
   const moves = history.map((squares, move) => {
     if (move <= 0) return null;
-    const description = "Go to move #" + move;
+    const description = "#" + move;
 
     return (
-      <li key={move}>
-        <button onClick={() => jumpToMove(move)}>{description}</button>
-      </li>
+      <button id='move-button' onClick={() => jumpToMove(move)}>{description}</button>
     );
   });
 
@@ -224,10 +220,10 @@ function TicTacToeGame() {
           <p>'X' has won <b>{winCount.x} rounds</b>, while 'O' has won <b>{winCount.y} rounds</b>.</p>
         </div>
         <div id='game-history'>
-          Sort moves by <button onClick={() => setSortAscending(!sortAscending)}>{sortAscending ? "Ascending" : "Descending"}</button>
-          <div>
-            <ol>{sortAscending ? moves : moves.reverse()}</ol>
-          </div>
+          {currentMove > 0 ? "Moves History" : null}
+        </div>
+        <div>
+          {moves}
         </div>
       </div>
     </div>
