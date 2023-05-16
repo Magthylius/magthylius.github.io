@@ -16,6 +16,16 @@ ol {
   margin-top: 100px;
 }
 
+#restart-button {
+  @include transparent-button;
+  font-size: large;
+  visibility: hidden;
+}
+
+#game-board {
+  margin-top: 1rem;
+}
+
 #game-info {
   width: 100%;
   align-items: center;
@@ -29,11 +39,6 @@ ol {
 #game-history {
   margin-top: 3rem;
   margin-bottom: 0.5rem;
-}
-
-#restart-button {
-  @include transparent-button;
-  font-size: large;
 }
 
 #restart-button:hover {

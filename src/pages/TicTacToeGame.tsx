@@ -206,13 +206,14 @@ function TicTacToeGame() {
 
   return (
     <div id='game' className='label'>
+      {
+        <button id='restart-button' className='label' onClick={handleGameRestart} style=
+          {{ visibility: `${hasGameEnded ? "visible" : "hidden"}` }}>
+          Restart Game
+        </button>
+      }
       <div id='game-board' className='label'>
         <Board isXTurn={isXTurn} hasGameEnded={hasGameEnded} squares={currentSquares} onPlay={handlePlay} onGameEnd={handleGameEnd} />
-        {!hasGameEnded ? null :
-          <button id='restart-button' className='label' onClick={handleGameRestart}>
-            Restart Game
-          </button>
-        }
       </div>
       <div id='game-info' className='label'>
         <div id='game-meta-info' className='label'>
