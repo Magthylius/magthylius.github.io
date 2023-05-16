@@ -46,7 +46,7 @@ ol {
   font-size: large;
 }
 
-#move-button {
+.move-button {
   color: $primaryColor;
   background-color: $transparentColor;
 
@@ -63,11 +63,15 @@ ol {
   cursor: pointer;
 }
 
-#move-button:hover {
+.move-button:hover {
   color: $bgColor;
   background-color: $primaryColor;
 
   cursor: pointer;
+}
+
+.selected-move-button {
+  background-color: $primaryColorShaded;
 }
 
 .square {

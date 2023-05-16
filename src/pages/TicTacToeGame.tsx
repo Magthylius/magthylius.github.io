@@ -200,7 +200,7 @@ function TicTacToeGame() {
     const description = "#" + move;
 
     return (
-      <button id='move-button' onClick={() => jumpToMove(move)}>{description}</button>
+      <button className={`move-button ${currentMove === move ? "selected-move-button" : ""}`} onClick={() => jumpToMove(move)}>{description}</button>
     );
   });
 
@@ -209,7 +209,7 @@ function TicTacToeGame() {
       {
         <button id='restart-button' className='label' onClick={handleGameRestart} style=
           {{ visibility: `${hasGameEnded ? "visible" : "hidden"}` }}>
-          Restart Game
+          Restart Game?
         </button>
       }
       <div id='game-board' className='label'>
