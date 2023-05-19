@@ -23,54 +23,44 @@ function Square(props: SquareProps) {
   }
 
   return (
-    <button
-      className={`square ${getStatusClass()}`}
-      onClick={props.onSquareClickEvent}
-    >
-      {props.squareValue}
+    <button className={`square ${getStatusClass()}`} onClick={props.onSquareClickEvent}>
+      {props.value}
     </button>
   );
 }
 
 function BoardRow(props: BoardRowProps) {
-  const square1Index = props.rowValue * 3 + 0;
-  const square2Index = props.rowValue * 3 + 1;
-  const square3Index = props.rowValue * 3 + 2;
+  const allowPlay = props.gameStatusData.allowPlay;
+  const squares = props.gameStatusData.squares;
+
+  function getSquareIndex(offset: number) {
+    return props.rowValue * 3 + offset;
+  }
+
+  function getSquareStatus(index: number) {
+    return props.endData.endReason?.includes(index) ? SquareStatus.Highlighted :
+      squares[index] ? SquareStatus.Selected : allowPlay ? SquareStatus.Empty : SquareStatus.Tied;
+  }
+
+  const square1Index = getSquareIndex(0);
+  const square2Index = getSquareIndex(1);
+  const square3Index = getSquareIndex(2);
 
   let square1Status = SquareStatus.Tied;
   let square2Status = SquareStatus.Tied;
   let square3Status = SquareStatus.Tied;
 
   if (props.endData.endStatus !== "TIE") {
-    const hasGameEnded = props.endData.endStatus === "X" || props.endData.endStatus === "O";
-
-    square1Status = props.endData.endReason?.includes(square1Index) ? SquareStatus.Highlighted :
-      props.refData[square1Index] ? SquareStatus.Selected :
-        hasGameEnded ? SquareStatus.Tied : SquareStatus.Empty;
-
-    square2Status = props.endData.endReason?.includes(square2Index) ? SquareStatus.Highlighted :
-      props.refData[square2Index] ? SquareStatus.Selected :
-        hasGameEnded ? SquareStatus.Tied : SquareStatus.Empty;
-
-    square3Status = props.endData.endReason?.includes(square3Index) ? SquareStatus.Highlighted :
-      props.refData[square3Index] ? SquareStatus.Selected :
-        hasGameEnded ? SquareStatus.Tied : SquareStatus.Empty;
+    square1Status = getSquareStatus(square1Index);
+    square2Status = getSquareStatus(square2Index);
+    square3Status = getSquareStatus(square3Index);
   }
 
   return (
     <div>
-      <Square squareValue={props.refData[square1Index]}
-        status={square1Status}
-        onSquareClickEvent={() => props.onRowClickEvent(square1Index)}
-      />
-      <Square squareValue={props.refData[square2Index]}
-        status={square2Status}
-        onSquareClickEvent={() => props.onRowClickEvent(square2Index)}
-      />
-      <Square squareValue={props.refData[square3Index]}
-        status={square3Status}
-        onSquareClickEvent={() => props.onRowClickEvent(square3Index)}
-      />
+      <Square value={squares[square1Index]} status={square1Status} onSquareClickEvent={() => props.onRowClickEvent(square1Index)} />
+      <Square value={squares[square2Index]} status={square2Status} onSquareClickEvent={() => props.onRowClickEvent(square2Index)} />
+      <Square value={squares[square3Index]} status={square3Status} onSquareClickEvent={() => props.onRowClickEvent(square3Index)} />
     </div>
   );
 }
@@ -117,9 +107,9 @@ function Board(props: BoardProps) {
 
   return (
     <>
-      <BoardRow refData={squares} rowValue={0} endData={endData} onRowClickEvent={handleClick} />
-      <BoardRow refData={squares} rowValue={1} endData={endData} onRowClickEvent={handleClick} />
-      <BoardRow refData={squares} rowValue={2} endData={endData} onRowClickEvent={handleClick} />
+      <BoardRow gameStatusData={props.gameStatusData} rowValue={0} endData={endData} onRowClickEvent={handleClick} />
+      <BoardRow gameStatusData={props.gameStatusData} rowValue={1} endData={endData} onRowClickEvent={handleClick} />
+      <BoardRow gameStatusData={props.gameStatusData} rowValue={2} endData={endData} onRowClickEvent={handleClick} />
       <div className='status label'>{status}</div>
     </>
   );

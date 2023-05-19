@@ -11,13 +11,13 @@ export interface GameEndData {
 }
 
 export interface SquareProps {
-    squareValue?: string;
+    value?: string;
     status: SquareStatus;
     onSquareClickEvent: () => void;
 }
 
 export interface BoardRowProps {
-    refData: string[];
+    gameStatusData: GameStatusData,
     endData: GameEndData;
     rowValue: number;
     onRowClickEvent: (index: number) => void;
