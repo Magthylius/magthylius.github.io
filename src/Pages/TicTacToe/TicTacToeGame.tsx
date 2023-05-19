@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./TicTacToeGame.scss"
-import { Vector2 } from "../HeaderInterfaces";
+import { Vector2 } from "../../HeaderInterfaces";
 
 interface GameEndData {
   endStatus: string | null;
