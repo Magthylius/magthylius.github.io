@@ -1,0 +1,24 @@
+@import "../../HeaderStyles";
+
+#spacing {
+  margin-top: 80px;
+}
+
+.tile {
+  display: inline-block;
+  vertical-align: bottom;
+
+  border-color: $primaryColor;
+  border-style: solid;
+
+  width: 100px;
+  height: 100px;
+  margin: 1px;
+
+  color: white;
+  font-size: larger;
+  font-weight: 600;
+
+  background-color: #00000000;
+  cursor: pointer;
+}
