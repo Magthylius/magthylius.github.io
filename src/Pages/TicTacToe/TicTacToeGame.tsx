@@ -189,7 +189,7 @@ function TicTacToeGame() {
       </div>
       <div id='game-info' className='label'>
         <div id='game-meta-info' className='label'>
-          <p>This {hasGameEnded ? "was" : "is"} <b>move {currentMove + (hasGameEnded ? 0 : 1)}.</b></p>
+          <p>{hasGameEnded || isViewingHistory ? "This was" : "Next is"} <b>move {currentMove + (hasGameEnded ? 0 : 1)}.</b></p>
           <p>'X' has won <b>{winCount.x} rounds</b>, while 'O' has won <b>{winCount.y} rounds</b>.</p>
         </div>
         <div id='game-history'>
