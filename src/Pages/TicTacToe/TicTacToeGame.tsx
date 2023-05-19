@@ -1,39 +1,8 @@
 import { useEffect, useState } from "react";
-import "./TicTacToeGame.scss"
 import { Vector2 } from "../../HeaderInterfaces";
+import { BoardProps, BoardRowProps, GameEndData, SquareProps, SquareStatus } from "./TicTacToeProps";
 
-interface GameEndData {
-  endStatus: string | null;
-  endReason?: number[];
-}
-
-enum SquareStatus {
-  Empty,
-  Selected,
-  Tied,
-  Highlighted
-}
-
-interface SquareProps {
-  squareValue?: string;
-  status: SquareStatus;
-  onSquareClickEvent: () => void;
-}
-
-interface BoardRowProps {
-  refData: string[];
-  endData: GameEndData;
-  rowValue: number;
-  onRowClickEvent: (index: number) => void;
-}
-
-interface BoardProps {
-  isXTurn: boolean,
-  hasGameEnded: boolean,
-  squares: string[],
-  onPlay: (squares: string[]) => void,
-  onGameEnd: (winner: string) => void
-}
+import "./TicTacToeGame.scss"
 
 function Square(props: SquareProps) {
   function getStatusClass(): string {
@@ -107,19 +76,23 @@ function BoardRow(props: BoardRowProps) {
 }
 
 function Board(props: BoardProps) {
+  const allowPlay = props.gameStatusData.allowPlay;
+  const isXTurn = props.gameStatusData.isXTurn;
+  const squares = props.gameStatusData.squares;
+
   function handleClick(index: number) {
-    if (props.hasGameEnded) return;
+    if (!allowPlay) return;
 
     //! Ignore if already has value
-    if (props.squares[index] || calculateStatus(props.squares).endStatus) return;
+    if (squares[index] || calculateStatus(squares).endStatus) return;
 
-    const nextSquares = props.squares.slice();
-    nextSquares[index] = props.isXTurn ? "X" : "O";
+    const nextSquares = squares.slice();
+    nextSquares[index] = isXTurn ? "X" : "O";
 
     props.onPlay(nextSquares);
   }
 
-  const endData = calculateStatus(props.squares);
+  const endData = calculateStatus(squares);
   let status = `Game has ended! '${endData.endStatus}' has won!`;
 
   switch (endData.endStatus) {
@@ -128,7 +101,7 @@ function Board(props: BoardProps) {
       break;
 
     case null:
-      status = "It is " + (props.isXTurn ? "X" : "O") + "'s turn.";
+      status = "It is " + (isXTurn ? "X" : "O") + "'s turn.";
       break;
   }
 
@@ -144,9 +117,9 @@ function Board(props: BoardProps) {
 
   return (
     <>
-      <BoardRow refData={props.squares} rowValue={0} endData={endData} onRowClickEvent={handleClick} />
-      <BoardRow refData={props.squares} rowValue={1} endData={endData} onRowClickEvent={handleClick} />
-      <BoardRow refData={props.squares} rowValue={2} endData={endData} onRowClickEvent={handleClick} />
+      <BoardRow refData={squares} rowValue={0} endData={endData} onRowClickEvent={handleClick} />
+      <BoardRow refData={squares} rowValue={1} endData={endData} onRowClickEvent={handleClick} />
+      <BoardRow refData={squares} rowValue={2} endData={endData} onRowClickEvent={handleClick} />
       <div className='status label'>{status}</div>
     </>
   );
@@ -156,6 +129,7 @@ function TicTacToeGame() {
   //! X is 'X', Y is 'O'
   const [winCount, setWinCount] = useState<Vector2>({ x: 0, y: 0 });
   const [history, setHistory] = useState<string[][]>([Array(9).fill(null)]);
+  const [isViewingHistory, SetIsViewingHistory] = useState<boolean>(false);
   const [currentMove, setCurrentMove] = useState(0);
   const [hasGameEnded, setHasGameEnded] = useState<boolean>(false);
 
@@ -187,12 +161,14 @@ function TicTacToeGame() {
 
   function handleGameRestart() {
     setHasGameEnded(false);
+    SetIsViewingHistory(false);
     setHistory([Array(9).fill(null)]);
     setCurrentMove(0)
   }
 
   function jumpToMove(nextMove: number) {
     setCurrentMove(nextMove);
+    SetIsViewingHistory(nextMove !== history.length - 1);
   }
 
   const moves = history.map((squares, move) => {
@@ -204,6 +180,12 @@ function TicTacToeGame() {
     );
   });
 
+  const gameStatusData = {
+    allowPlay: !hasGameEnded && !isViewingHistory,
+    isXTurn: isXTurn,
+    squares: currentSquares
+  }
+
   return (
     <div id='game' className='label'>
       {
@@ -213,7 +195,7 @@ function TicTacToeGame() {
         </button>
       }
       <div id='game-board' className='label'>
-        <Board isXTurn={isXTurn} hasGameEnded={hasGameEnded} squares={currentSquares} onPlay={handlePlay} onGameEnd={handleGameEnd} />
+        <Board gameStatusData={gameStatusData} onPlay={handlePlay} onGameEnd={handleGameEnd} />
       </div>
       <div id='game-info' className='label'>
         <div id='game-meta-info' className='label'>
