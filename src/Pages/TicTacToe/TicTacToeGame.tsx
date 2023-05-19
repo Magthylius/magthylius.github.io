@@ -178,12 +178,10 @@ function TicTacToeGame() {
 
   return (
     <div id='game' className='label'>
-      {
-        <button id='restart-button' className='label' onClick={handleGameRestart} style=
-          {{ visibility: `${hasGameEnded ? "visible" : "hidden"}` }}>
-          Restart Game?
-        </button>
-      }
+      <button id='restart-button' className='label' onClick={handleGameRestart} style=
+        {{ visibility: `${hasGameEnded ? "visible" : "hidden"}` }}>
+        Restart Game?
+      </button>
       <div id='game-board' className='label'>
         <Board gameStatusData={gameStatusData} onPlay={handlePlay} onGameEnd={handleGameEnd} />
       </div>
