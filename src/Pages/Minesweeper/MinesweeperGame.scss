@@ -23,11 +23,16 @@
   cursor: pointer;
 }
 
+.fieldRow {
+  margin: 0px;
+  padding: 0px;
+}
+
 .field {
   display: grid;
   width: 500px;
   margin: auto;
 
-  grid-auto-rows: auto;
-  gap: 1rem;
+  //grid-auto-rows: auto;
+  //gap: 1rem;
 }
