@@ -4,7 +4,7 @@ import { Vector2 } from "../../HeaderInterfaces";
 import "./MinesweeperGame.scss"
 
 function Tile(props: TileProps) {
-  const value = props.tileData ? props.tileData.value : "null";
+  const value = props.tileData ? props.tileData.value : "";
   return (
     <button className="tile" onClick={props.onTileClicked}>{value}</button>
   );
