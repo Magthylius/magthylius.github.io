@@ -11,9 +11,9 @@
   border-color: $primaryColor;
   border-style: solid;
 
-  width: 100px;
-  height: 100px;
-  margin: 1px;
+  width: 50px;
+  height: 50px;
+  margin: 0px;
 
   color: white;
   font-size: larger;
@@ -21,4 +21,13 @@
 
   background-color: #00000000;
   cursor: pointer;
+}
+
+.field {
+  display: grid;
+  width: 500px;
+  margin: auto;
+
+  grid-auto-rows: auto;
+  gap: 1rem;
 }
