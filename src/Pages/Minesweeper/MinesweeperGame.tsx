@@ -4,9 +4,21 @@ import { Vector2 } from "../../HeaderInterfaces";
 import "./MinesweeperGame.scss"
 
 function Tile(props: TileProps) {
-  const value = props.tileData?.isOpened ? props.tileData.value : "";
+  const isOpened = props.tileData?.isOpened;
+  const value = props.tileData?.value;
+  const display = isOpened && value && value > 0 ? props.tileData.value : "";
+
+  let tileClass = "tile ";
+  if (isOpened) {
+    if (value && value < 0) tileClass += "tile-mine ";
+    else {
+      tileClass += "tile-opened ";
+      if (value > 0) tileClass += "tile-number ";
+    }
+  }
+
   return (
-    <button className="tile" onClick={props.onTileClicked}>{value}</button>
+    <button className={tileClass} onClick={props.onTileClicked}>{display}</button>
   );
 }
 

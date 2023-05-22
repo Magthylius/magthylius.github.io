@@ -24,6 +24,19 @@
   cursor: pointer;
 }
 
+.tile-opened {
+  background-color: #7770607a;
+  cursor: default;
+}
+
+.tile-mine {
+  background-color: #722d2d;
+}
+
+.tile-number {
+  background-color: $primaryColorShaded;
+}
+
 .fieldRow {
   margin: 0px;
   padding: 0px;
@@ -33,7 +46,4 @@
   display: grid;
   width: 500px;
   margin: auto;
-
-  //grid-auto-rows: auto;
-  //gap: 1rem;
 }
