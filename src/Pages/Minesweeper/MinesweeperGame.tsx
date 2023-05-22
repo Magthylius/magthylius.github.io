@@ -4,7 +4,7 @@ import { Vector2 } from "../../HeaderInterfaces";
 import "./MinesweeperGame.scss"
 
 function Tile(props: TileProps) {
-  const value = props.tileData ? props.tileData.value : "";
+  const value = props.tileData?.isOpened ? props.tileData.value : "";
   return (
     <button className="tile" onClick={props.onTileClicked}>{value}</button>
   );
@@ -40,9 +40,30 @@ export default function MinesweeperGame() {
   const [fieldData, setFieldData] =
     useState<TileData[][]>(Array(fieldSize.y).fill(0).map(row => new Array(fieldSize.x).fill(null)));
 
+  function openTile(clickedX: number, clickedY: number, fieldData: TileData[][]) {
+    fieldData[clickedX][clickedY].isOpened = true;
+
+    if (fieldData[clickedX][clickedY].value === 0) {
+      for (let a = -1; a < 2; a++) {
+        for (let b = -1; b < 2; b++) {
+          let neighbourX = clickedX + a;
+          let neighbourY = clickedY + b;
+
+          if (a + b === 0) continue;
+
+          if (fieldData[neighbourX] && fieldData[neighbourX][neighbourY]
+            && !fieldData[neighbourX][neighbourY].isOpened) {
+            console.log(`setting (${neighbourX}, ${neighbourY}), ${fieldData[neighbourX][neighbourY].isOpened} ${fieldData[neighbourX][neighbourY].value}`)
+            openTile(neighbourX, neighbourY, fieldData);
+          }
+        }
+      }
+    }
+  }
+
   function handleOnTileClicked(clickedX: number, clickedY: number) {
     const newFieldData = fieldData.slice(0, fieldData.length);
-
+    console.log(`setting (${clickedX}, ${clickedY})`)
     if (!hasStarted) {
       let currentMineCount: number = 0;
       while (currentMineCount < mineCount) {
@@ -65,6 +86,8 @@ export default function MinesweeperGame() {
               let actualX = x + a;
               let actualY = y + b;
 
+              if (a + b === 0) continue;
+
               if (newFieldData[actualX] && newFieldData[actualX][actualY] && newFieldData[actualX][actualY]?.value === -1) {
                 surroundingMines++;
               }
@@ -78,7 +101,7 @@ export default function MinesweeperGame() {
       setHasStarted(true);
     }
 
-    newFieldData[clickedX][clickedY] = { ...newFieldData[clickedX][clickedY], isOpened: true }
+    openTile(clickedX, clickedY, newFieldData);
     setFieldData(newFieldData);
   }
 
