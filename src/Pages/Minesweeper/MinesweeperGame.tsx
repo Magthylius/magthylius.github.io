@@ -49,7 +49,7 @@ export default function MinesweeperGame() {
           let neighbourX = clickedX + a;
           let neighbourY = clickedY + b;
 
-          if (a + b === 0) continue;
+          if (a === 0 && b === 0) continue;
 
           if (fieldData[neighbourX] && fieldData[neighbourX][neighbourY]
             && !fieldData[neighbourX][neighbourY].isOpened) {
@@ -86,7 +86,7 @@ export default function MinesweeperGame() {
               let actualX = x + a;
               let actualY = y + b;
 
-              if (a + b === 0) continue;
+              if (a === 0 && b === 0) continue;
 
               if (newFieldData[actualX] && newFieldData[actualX][actualY] && newFieldData[actualX][actualY]?.value === -1) {
                 surroundingMines++;
