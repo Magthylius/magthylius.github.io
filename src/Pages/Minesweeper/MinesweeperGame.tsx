@@ -123,7 +123,7 @@ export default function MinesweeperGame() {
     }
 
     const newRemainderCount = openTile(clickedX, clickedY, remainderCount, newFieldData);
-    console.log(newRemainderCount);
+
     setFieldData(newFieldData);
     setRemainderCount(newRemainderCount);
 
