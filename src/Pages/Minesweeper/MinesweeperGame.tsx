@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FieldProps, TileData, TileProps } from "./MinesweeperProps";
+import { FieldProps, GameState, TileData, TileProps } from "./MinesweeperProps";
 import { Vector2 } from "../../HeaderInterfaces";
 import "./MinesweeperGame.scss"
 
@@ -46,7 +46,7 @@ function Field(props: FieldProps) {
 }
 
 export default function MinesweeperGame() {
-  const [hasStarted, setHasStarted] = useState<boolean>(false);
+  const [gameState, setGameState] = useState<GameState>(GameState.Awaiting);
   const [mineCount, setMineCount] = useState<number>(10);
   const [fieldSize, setFieldSize] = useState<Vector2>({ x: 10, y: 10 });
   const [remainderCount, setRemainderCount] = useState<number>(fieldSize.x * fieldSize.y);
@@ -55,6 +55,11 @@ export default function MinesweeperGame() {
 
   function openTile(clickedX: number, clickedY: number, remainder: number, fieldData: TileData[][]): number {
     fieldData[clickedX][clickedY].isOpened = true;
+
+    if (fieldData[clickedX][clickedY].value === -1) {
+      setGameState(GameState.Lost);
+      return remainder - 1;
+    }
 
     if (fieldData[clickedX][clickedY].value === 0) {
       for (let a = -1; a < 2; a++) {
@@ -77,9 +82,10 @@ export default function MinesweeperGame() {
 
   function handleOnTileClicked(clickedX: number, clickedY: number) {
     if (fieldData[clickedX] && fieldData[clickedX][clickedY] && fieldData[clickedX][clickedY].isOpened) return;
+    if (gameState !== GameState.Awaiting && gameState !== GameState.Ongoing) return;
 
     const newFieldData = fieldData.slice(0, fieldData.length);
-    if (!hasStarted) {
+    if (gameState === GameState.Awaiting) {
       let currentMineCount: number = 0;
       while (currentMineCount < mineCount) {
         const randX = Math.round(Math.random() * (fieldSize.x - 1));
@@ -113,19 +119,34 @@ export default function MinesweeperGame() {
         }
       }
 
-      setHasStarted(true);
+      setGameState(GameState.Ongoing);
     }
 
     const newRemainderCount = openTile(clickedX, clickedY, remainderCount, newFieldData);
     console.log(newRemainderCount);
     setFieldData(newFieldData);
     setRemainderCount(newRemainderCount);
+
+    if (newRemainderCount === mineCount) setGameState(GameState.Won);
+  }
+
+  let gameResult: string = "";
+  switch (gameState) {
+    case GameState.Lost:
+      gameResult = "You Lost!"
+      break;
+
+    case GameState.Won:
+      gameResult = "You Won!";
+      break;
   }
 
   return (
     <div>
       <div id="spacing"></div>
       <Field fieldSize={fieldSize} fieldData={fieldData} onTileClicked={handleOnTileClicked} />
+      <p>Remaining: {remainderCount}</p>
+      <p>{gameResult}</p>
     </div>
   );
 }

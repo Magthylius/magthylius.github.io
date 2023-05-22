@@ -1,5 +1,12 @@
 import { Vector2 } from "../../HeaderInterfaces";
 
+export enum GameState {
+  Awaiting,
+  Ongoing,
+  Won,
+  Lost
+}
+
 export interface TileData {
   value: number;
   isOpened: boolean;
