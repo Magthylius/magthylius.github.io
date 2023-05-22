@@ -1,12 +1,42 @@
 @import "../../HeaderStyles";
 
+@keyframes tileOpening {
+  from {
+    background-color: #00000000;
+  }
+
+  to {
+    background-color: #7770607a;
+  }
+}
+
+@keyframes tileOpeningMine {
+  from {
+    background-color: #00000000;
+  }
+
+  to {
+    background-color: #722d2d;
+  }
+}
+
+@keyframes tileOpeningNumber {
+  from {
+    background-color: #00000000;
+  }
+
+  to {
+    background-color: $primaryColorShaded;
+  }
+}
+
 #spacing {
   margin-top: 80px;
 }
 
 .tile {
   display: inline-block;
-  vertical-align: bottom;
+  vertical-align: middle;
 
   border-color: $primaryColor;
   border-style: solid;
@@ -25,15 +55,24 @@
 }
 
 .tile-opened {
+  animation-name: tileOpening;
+  animation-duration: 0.5s;
+
   background-color: #7770607a;
   cursor: default;
+
+
 }
 
 .tile-mine {
+  animation-name: tileOpeningMine;
+  animation-duration: 0.5s;
   background-color: #722d2d;
 }
 
 .tile-number {
+  animation-name: tileOpeningNumber;
+  animation-duration: 0.5s;
   background-color: $primaryColorShaded;
 }
 
