@@ -49,10 +49,11 @@ export default function MinesweeperGame() {
   const [hasStarted, setHasStarted] = useState<boolean>(false);
   const [mineCount, setMineCount] = useState<number>(10);
   const [fieldSize, setFieldSize] = useState<Vector2>({ x: 10, y: 10 });
+  const [remainderCount, setRemainderCount] = useState<number>(fieldSize.x * fieldSize.y);
   const [fieldData, setFieldData] =
     useState<TileData[][]>(Array(fieldSize.y).fill(0).map(row => new Array(fieldSize.x).fill(null)));
 
-  function openTile(clickedX: number, clickedY: number, fieldData: TileData[][]) {
+  function openTile(clickedX: number, clickedY: number, remainder: number, fieldData: TileData[][]): number {
     fieldData[clickedX][clickedY].isOpened = true;
 
     if (fieldData[clickedX][clickedY].value === 0) {
@@ -65,17 +66,19 @@ export default function MinesweeperGame() {
 
           if (fieldData[neighbourX] && fieldData[neighbourX][neighbourY]
             && !fieldData[neighbourX][neighbourY].isOpened) {
-            console.log(`setting (${neighbourX}, ${neighbourY}), ${fieldData[neighbourX][neighbourY].isOpened} ${fieldData[neighbourX][neighbourY].value}`)
-            openTile(neighbourX, neighbourY, fieldData);
+            remainder = openTile(neighbourX, neighbourY, remainder, fieldData);
           }
         }
       }
     }
+
+    return remainder - 1;
   }
 
   function handleOnTileClicked(clickedX: number, clickedY: number) {
+    if (fieldData[clickedX] && fieldData[clickedX][clickedY] && fieldData[clickedX][clickedY].isOpened) return;
+
     const newFieldData = fieldData.slice(0, fieldData.length);
-    console.log(`setting (${clickedX}, ${clickedY})`)
     if (!hasStarted) {
       let currentMineCount: number = 0;
       while (currentMineCount < mineCount) {
@@ -113,8 +116,10 @@ export default function MinesweeperGame() {
       setHasStarted(true);
     }
 
-    openTile(clickedX, clickedY, newFieldData);
+    const newRemainderCount = openTile(clickedX, clickedY, remainderCount, newFieldData);
+    console.log(newRemainderCount);
     setFieldData(newFieldData);
+    setRemainderCount(newRemainderCount);
   }
 
   return (
