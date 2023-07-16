@@ -145,6 +145,7 @@ export default function MinesweeperGame() {
   return (
     <div>
       <div id="spacing"></div>
+      <div>Game is till WIP!</div>
       <Field fieldSize={fieldSize} fieldData={fieldData} onTileClicked={handleOnTileClicked} />
       <p>Remaining: {remainderCount}</p>
       <p>{gameResult}</p>
