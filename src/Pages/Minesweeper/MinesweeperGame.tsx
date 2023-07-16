@@ -16,6 +16,7 @@ function Tile(props: TileProps) {
       if (value > 0) tileClass += "tile-number ";
     }
   }
+  else tileClass += "tile-closed ";
 
   return (
     <button className={tileClass} onClick={props.onTileClicked}>{display}</button>
