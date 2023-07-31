@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/Magthylius/magthylius.github.io/static/css/main.2680cb21.css",
-    "main.js": "/Magthylius/magthylius.github.io/static/js/main.bc3bac9c.js",
-    "static/js/787.d1d4a2c2.chunk.js": "/Magthylius/magthylius.github.io/static/js/787.d1d4a2c2.chunk.js",
-    "static/media/MagsSepia.png": "/Magthylius/magthylius.github.io/static/media/MagsSepia.ba3bdf0b74cc45c02ea1.png",
-    "index.html": "/Magthylius/magthylius.github.io/index.html",
-    "static/media/unity.svg": "/Magthylius/magthylius.github.io/static/media/unity.c8b6847291f994e031c3a7b4cbcfd61b.svg",
-    "main.2680cb21.css.map": "/Magthylius/magthylius.github.io/static/css/main.2680cb21.css.map",
-    "main.bc3bac9c.js.map": "/Magthylius/magthylius.github.io/static/js/main.bc3bac9c.js.map",
-    "787.d1d4a2c2.chunk.js.map": "/Magthylius/magthylius.github.io/static/js/787.d1d4a2c2.chunk.js.map"
+    "main.css": "./static/css/main.338c4a80.css",
+    "main.js": "./static/js/main.a755fc6b.js",
+    "static/js/787.d1d4a2c2.chunk.js": "./static/js/787.d1d4a2c2.chunk.js",
+    "static/media/MagsSepia.png": "./static/media/MagsSepia.ba3bdf0b74cc45c02ea1.png",
+    "static/media/unity.svg": "./static/media/unity.c8b6847291f994e031c3a7b4cbcfd61b.svg",
+    "index.html": "./index.html",
+    "main.338c4a80.css.map": "./static/css/main.338c4a80.css.map",
+    "main.a755fc6b.js.map": "./static/js/main.a755fc6b.js.map",
+    "787.d1d4a2c2.chunk.js.map": "./static/js/787.d1d4a2c2.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.2680cb21.css",
-    "static/js/main.bc3bac9c.js"
+    "static/css/main.338c4a80.css",
+    "static/js/main.a755fc6b.js"
   ]
 }
