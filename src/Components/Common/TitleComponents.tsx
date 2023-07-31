@@ -1,4 +1,4 @@
-import { HeaderTitleProps } from "./TitleComponents.interfaces";
+import { HeaderTitleProps, SVGElementProps } from "./TitleComponents.interfaces";
 import "../Common/TitleComponents.styles.scss"
 
 export function HeaderTitle(props: HeaderTitleProps) {
@@ -9,3 +9,10 @@ export function HeaderTitle(props: HeaderTitleProps) {
   );
 }
 
+export function SVGElement(props: SVGElementProps) {
+  return (
+    <div>
+      <props.svgImage style={{ width: "5%" }} />
+    </div>
+  );
+}
