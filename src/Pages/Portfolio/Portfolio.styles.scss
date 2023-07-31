@@ -1,0 +1,41 @@
+.mainContainer {
+  margin: 2%;
+}
+
+.disclaimer {
+  font-size: 60px;
+  color: red;
+}
+
+.intro {
+  margin-left: 25%;
+  margin-right: 25%;
+  padding: 10px;
+}
+
+.clickableSection {
+  display: flex;
+  align-items: center;
+  margin: auto;
+  width: 80%;
+  flex-wrap: nowrap;
+  justify-content: center;
+  flex-direction: row;
+
+  .svgImage {
+    width: 150px;
+    height: auto;
+    margin-top: 20px;
+    margin-right: -20px;
+    opacity: 15%;
+  }
+
+  .text {
+    text-align: left;
+
+    .header {
+      font-size: 40px;
+      font-weight: 600;
+    }
+  }
+}

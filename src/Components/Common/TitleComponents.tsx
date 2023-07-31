@@ -12,7 +12,7 @@ export function HeaderTitle(props: HeaderTitleProps) {
 export function SVGElement(props: SVGElementProps) {
   return (
     <div>
-      <props.svgImage style={{ width: "5%" }} />
+      <props.svgImage style={{ width: "100%" }} />
     </div>
   );
 }
