@@ -9,6 +9,7 @@ $transparentColor: #00000000;
 @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Wix+Madefor+Display&display=swap');
 $bodyFont: 'Wix Madefor Display', 'Lato', sans-serif;
+$fontSize: 18px;
 
 @mixin transparent-button {
   color: #586779;

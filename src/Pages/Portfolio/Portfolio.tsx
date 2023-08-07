@@ -6,9 +6,11 @@ import "./Portfolio.styles.scss"
 
 function ResumeButton() {
   return (
-    <a href="../../Assets/Resume/ResumeOfficial.pdf" download={"Jonathan Tang - Resume.pdf"}>
-      Resume
-    </a>
+    <button className="resumeButton">
+      <a href="Assets/Resume/ResumeOfficial.pdf" download={"Jonathan Tang - Resume.pdf"}>
+        Get my resume
+      </a>
+    </button>
   );
 }
 
@@ -16,6 +18,7 @@ function Introduction() {
   return (
     <div className="intro">
       Hi there! I'm a passionate game developer in design, writing and programming. I am very dedicated to game design, architecture and development, and always strive to create high-quality work.
+      <ResumeButton />
     </div>);
 }
 
@@ -50,7 +53,6 @@ export default function PortfolioPage() {
       <div className="disclaimer">
         THIS PAGE IS STILL WIP!
       </div>
-      <ResumeButton />
       <Introduction />
       <HeaderTitle header={"TECHNICAL SKILLSETS"} fontSize={25} />
       <Section

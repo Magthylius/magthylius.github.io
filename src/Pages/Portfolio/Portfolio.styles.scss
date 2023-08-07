@@ -15,6 +15,31 @@
   padding: 10px;
 }
 
+.resumeButton {
+  padding: 10px;
+  margin-top: 10px;
+  border: 2px;
+  border-style: dashed;
+  background-color: $transparentColor;
+  border-color: $primaryColor;
+
+  a {
+    text-decoration: none;
+    flex-grow: 2;
+    font: $bodyFont;
+    font-size: $fontSize;
+    color: $primaryColor;
+  }
+
+  a:hover {
+    color: $primaryColorShaded;
+  }
+}
+
+.resumeButton:hover {
+  border-color: $primaryColorShaded;
+}
+
 .clickableSection {
   display: flex;
   align-items: center;
