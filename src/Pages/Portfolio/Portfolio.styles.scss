@@ -40,7 +40,7 @@
   border-color: $primaryColorShaded;
 }
 
-.clickableSection {
+.skillsetSection {
   display: flex;
   align-items: center;
   margin: auto;
@@ -65,5 +65,21 @@
       font-size: 40px;
       font-weight: 600;
     }
+  }
+}
+
+.experienceSection {
+  h1 {
+    color: $accentColor;
+    margin: 0px;
+  }
+
+  .timeline {
+    color: $secondaryColor;
+    font-style: italic;
+  }
+
+  .description {
+    padding: 10px;
   }
 }

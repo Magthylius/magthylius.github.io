@@ -31,9 +31,9 @@ interface ISectionProps {
   body: any;
 }
 
-function Section(props: ISectionProps) {
+function SkillsetSection(props: ISectionProps) {
   return (
-    <div className="clickableSection">
+    <div className="skillsetSection">
       <props.svgImage className="svgImage" title={props.svgImageTitle} />
       <div className="text">
         <div className="header">
@@ -47,6 +47,29 @@ function Section(props: ISectionProps) {
   );
 }
 
+function ExperienceSection() {
+  let bShowYears = false;
+  const timelineLabel = "OCT 2021 - CURRENT";
+  const yearsOfExperience = "2 YEARS OF EXPERIENCE";
+
+  const onTimelineHover = () => {
+    bShowYears = true;
+  }
+
+  return (
+    <div className="experienceSection">
+      <h1>Streamline Studios</h1>
+      <div className="timeline" onMouseEnter={onTimelineHover}>
+        {bShowYears ? yearsOfExperience : timelineLabel}
+      </div>
+      <div className="description">
+        Description
+      </div>
+      <img src="Assets/Graphics/placeholder.png" alt="placeholder" />
+    </div>
+  );
+}
+
 export default function PortfolioPage() {
   return (
     <div className="mainContainer">
@@ -55,7 +78,7 @@ export default function PortfolioPage() {
       </div>
       <Introduction />
       <HeaderTitle header={"TECHNICAL SKILLSETS"} fontSize={25} />
-      <Section
+      <SkillsetSection
         svgImage={UnitySVG}
         svgImageTitle="Unity engine logo"
         header="UNITY"
@@ -70,7 +93,7 @@ export default function PortfolioPage() {
             - Engineered render pipeline effects and features<br />
           </div>
         } />
-      <Section
+      <SkillsetSection
         svgImage={UnrealSVG}
         svgImageTitle="Unreal Engine logo"
         header="UNREAL ENGINE"
@@ -83,5 +106,7 @@ export default function PortfolioPage() {
             - Integrated external APIs to facilitate communication with third-party applications<br />
           </div>
         } />
+      <HeaderTitle header="PROFESSIONAL EXPERIENCES" fontSize={25} />
+      <ExperienceSection />
     </div>);
 }
