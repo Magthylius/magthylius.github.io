@@ -115,7 +115,7 @@ export default function PortfolioPage() {
         THIS PAGE IS STILL WIP!
       </div>
       <Introduction />
-      <HeaderTitle header={"TECHNICAL SKILLSETS"} fontSize={25} />
+      {/* <HeaderTitle header={"TECHNICAL SKILLSETS"} fontSize={25} />
       <SkillsetSection
         svgImage={UnitySVG}
         svgImageTitle="Unity engine logo"
@@ -143,7 +143,7 @@ export default function PortfolioPage() {
             - Engineered massively multiplayer online networking servers<br />
             - Integrated external APIs to facilitate communication with third-party applications<br />
           </div>
-        } />
+        } /> */}
       <HeaderTitle header="PROFESSIONAL EXPERIENCES" fontSize={25} />
       <ExperienceSection />
     </div>);
