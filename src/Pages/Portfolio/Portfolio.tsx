@@ -1,10 +1,37 @@
 import { HeaderTitle } from "../../Components/Common/TitleComponents";
+import Slider, { Settings } from "react-slick"
 import { ReactComponent as UnitySVG } from '../../Graphics/Engines/unity.svg'
 import { ReactComponent as UnrealSVG } from '../../Graphics/Engines/ue.svg'
 
 import "./Portfolio.styles.scss"
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
 
 const PlaceholderImagePath = "Assets/Graphics/placeholder.png";
+
+interface ISliderProps {
+  content: any
+}
+
+function ShowcaseCorousel(props: ISliderProps) {
+  const settings: Settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: true,
+    autoplay: true,
+  }
+
+  return (
+    <div>
+      <Slider {...settings}>
+        {props.content}
+      </Slider>
+    </div >
+  );
+}
 
 function ResumeButton() {
   return (
@@ -60,6 +87,11 @@ function ExperienceSection() {
     bShowYears = true;
   }
 
+  const images: string[] = [PlaceholderImagePath, PlaceholderImagePath];
+  const imagesMap = images.map((imagePath, index) => {
+    return <img src={imagePath} alt={index.toString()} className="displays" />
+  })
+
   return (
     <div className="experienceSection">
       <h1>Streamline Studios</h1>
@@ -69,7 +101,9 @@ function ExperienceSection() {
       <div className="description">
         Description
       </div>
-      <img src={PlaceholderImagePath} alt="placeholder" />
+      <div className="corousel">
+        <ShowcaseCorousel content={imagesMap} />
+      </div>
     </div>
   );
 }
