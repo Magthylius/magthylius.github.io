@@ -13,7 +13,7 @@ interface ISliderProps {
   content: any
 }
 
-function ShowcaseCorousel(props: ISliderProps) {
+function ShowcaseCarousel(props: ISliderProps) {
   const settings: Settings = {
     dots: true,
     infinite: true,
@@ -101,8 +101,8 @@ function ExperienceSection() {
       <div className="description">
         Description
       </div>
-      <div className="corousel">
-        <ShowcaseCorousel content={imagesMap} />
+      <div className="carousel">
+        <ShowcaseCarousel content={imagesMap} />
       </div>
     </div>
   );
