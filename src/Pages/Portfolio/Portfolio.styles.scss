@@ -1,7 +1,11 @@
 @import "../../HeaderStyles";
 
 .mainContainer {
-  margin: 2%;
+  margin-top: 2%;
+  margin-bottom: 10%;
+  overflow-y: auto;
+  height: 89vh;
+  width: 100vw;
 }
 
 .disclaimer {
