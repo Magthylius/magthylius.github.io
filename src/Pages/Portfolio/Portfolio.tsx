@@ -4,6 +4,14 @@ import { ReactComponent as UnrealSVG } from '../../Graphics/Engines/ue.svg'
 
 import "./Portfolio.styles.scss"
 
+function ResumeButton() {
+  return (
+    <a href="../../Assets/Resume/ResumeOfficial.pdf" download={"Jonathan Tang - Resume.pdf"}>
+      Resume
+    </a>
+  );
+}
+
 function Introduction() {
   return (
     <div className="intro">
@@ -42,6 +50,7 @@ export default function PortfolioPage() {
       <div className="disclaimer">
         THIS PAGE IS STILL WIP!
       </div>
+      <ResumeButton />
       <Introduction />
       <HeaderTitle header={"TECHNICAL SKILLSETS"} fontSize={25} />
       <Section
