@@ -4,6 +4,8 @@ import { ReactComponent as UnrealSVG } from '../../Graphics/Engines/ue.svg'
 
 import "./Portfolio.styles.scss"
 
+const PlaceholderImagePath = "Assets/Graphics/placeholder.png";
+
 function ResumeButton() {
   return (
     <button className="resumeButton">
@@ -67,7 +69,7 @@ function ExperienceSection() {
       <div className="description">
         Description
       </div>
-      <img src="Assets/Graphics/placeholder.png" alt="placeholder" />
+      <img src={PlaceholderImagePath} alt="placeholder" />
     </div>
   );
 }
