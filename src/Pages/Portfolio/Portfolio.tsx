@@ -16,8 +16,10 @@ function ResumeButton() {
 
 function Introduction() {
   return (
-    <div className="intro">
-      Hi there! I'm a passionate game developer in design, writing and programming. I am very dedicated to game design, architecture and development, and always strive to create high-quality work.
+    <div>
+      <div className="intro">
+        Hi there! I'm a passionate game developer in design, writing and programming. I am very dedicated to game design, architecture and development, and always strive to create high-quality work.
+      </div>
       <ResumeButton />
     </div>);
 }
