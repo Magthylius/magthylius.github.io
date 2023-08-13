@@ -99,7 +99,23 @@ function SkillsetSection(props: ISectionProps) {
 }
 
 function ExperienceSection(props: IExperienceSectionProps) {
+  const [tabIndex, setTabIndex] = useState(0);
   const { readMode } = props;
+  const images: string[] = [PlaceholderImagePath, PlaceholderImagePath];
+  const imagesMap = images.map((imagePath, index) => {
+    return <img src={imagePath} alt={index.toString()} className="displays" />
+  })
+
+  const onTabChange = (event: React.SyntheticEvent, newValue: number) => {
+    setTabIndex(newValue);
+  };
+
+  const tabProps = (index: number) => {
+    return {
+      id: `simple-tab-${index}`,
+      'aria-controls': `simple-tabpanel-${index}`,
+    };
+  }
 
   const timelineLabel =
     readMode === ReadMode.Normal ? "OCT 2021 - CURRENT" : "2 YEARS";
@@ -124,23 +140,6 @@ function ExperienceSection(props: IExperienceSectionProps) {
         with pride, improving them over time for the team.
       </p>
 
-  const [tabIndex, setTabIndex] = useState(0);
-
-  const onTabChange = (event: React.SyntheticEvent, newValue: number) => {
-    setTabIndex(newValue);
-  };
-
-  function TabProps(index: number) {
-    return {
-      id: `simple-tab-${index}`,
-      'aria-controls': `simple-tabpanel-${index}`,
-    };
-  }
-
-  const images: string[] = [PlaceholderImagePath, PlaceholderImagePath];
-  const imagesMap = images.map((imagePath, index) => {
-    return <img src={imagePath} alt={index.toString()} className="displays" />
-  })
 
   return (
     <div className="experienceSection">
@@ -153,19 +152,32 @@ function ExperienceSection(props: IExperienceSectionProps) {
       <div className="carousel">
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <Tabs value={tabIndex} onChange={onTabChange} aria-label="basic tabs example" centered>
-            <Tab label="AAA METAVERSE" {...TabProps(0)} wrapped />
-            <Tab label="DIGITAL TWIN" {...TabProps(1)} />
-            <Tab label="AR PRODUCT" {...TabProps(2)} />
+            <Tab label="AAA METAVERSE" {...tabProps(0)} wrapped />
+            <Tab label="DIGITAL TWIN" {...tabProps(1)} />
+            <Tab label="AR PRODUCT" {...tabProps(2)} />
           </Tabs>
         </Box>
         <CustomTabPanel value={tabIndex} index={0}>
-          Item One
+          This is an undisclosed project, expected to be announced in September 2023.
+          Can't talk much about it unfortunately.
+          <p>
+            KEY RESPONSIBILITIES<br />
+            Foundational, Networking, UI, Gameplay, Porting
+          </p>
         </CustomTabPanel>
         <CustomTabPanel value={tabIndex} index={1}>
-          Item Two
+          This is an undisclosed project. Can't talk much about it unfortunately.
+          <p>
+            KEY RESPONSIBILITIES<br />
+            Foundational, Networking, UI
+          </p>
         </CustomTabPanel>
         <CustomTabPanel value={tabIndex} index={2}>
-          Item Three
+          This is an undisclosed project. Can't talk much about it unfortunately.
+          <p>
+            KEY RESPONSIBILITIES<br />
+            Foundational, Technical Art, UI
+          </p>
         </CustomTabPanel>
         <ShowcaseCarousel content={imagesMap} />
       </div>
