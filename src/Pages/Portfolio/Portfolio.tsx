@@ -7,12 +7,21 @@ import "./Portfolio.styles.scss"
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import { Box, Tab, Tabs } from "@mui/material";
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 const PlaceholderImagePath = "Assets/Graphics/placeholder.png";
 
+enum ReadMode {
+  Normal,
+  TLDR
+}
+
 interface ISliderProps {
   content: any
+}
+
+interface IExperienceSectionProps {
+  readMode: ReadMode
 }
 
 function ShowcaseCarousel(props: ISliderProps) {
@@ -89,13 +98,15 @@ function SkillsetSection(props: ISectionProps) {
   );
 }
 
-function ExperienceSection() {
+function ExperienceSection(props: IExperienceSectionProps) {
+  const { readMode } = props;
+
   let bShowYears = false;
-  const timelineLabel = "OCT 2021 - CURRENT";
-  const yearsOfExperience = "2 YEARS OF EXPERIENCE";
-  const promotionTrack = "Junior Game Progammer → Game Programmer"
+  const timelineLabel = readMode === ReadMode.Normal ? "OCT 2021 - CURRENT" : "2 YEARS";
+  const promotionTrack =
+    readMode === ReadMode.Normal ? "Junior Game Progammer → Game Programmer" : "Junior → Mid-Level Programmer";
   const description =
-    <div>
+    readMode === ReadMode.Normal ?
       <p>
         Throughout my tenure, I've demonstrated a natural aptitude for leadership and a proactive
         approach to project involvement. In challenging times, I proactively provide supprt to fellow
@@ -105,12 +116,17 @@ function ExperienceSection() {
         Notably, I've authored and developed numerous foundational systems in my projects,
         taking pride in iterative improvements that have established a strong and customizable
         foundation for our team's ongoing development efforts.
+      </p> :
+      <p>
+        During my time here, I've shown a knack for leadership and an active role in projects.
+        In tough times, I lend a hand to fellow developers and help newcomers grasp the code.
+        I often discuss design for easy-to-use systems that benefit the team. I've created core systems
+        with pride, improving them over time for the team.
       </p>
-    </div>
 
   const [tabIndex, setTabIndex] = useState(0);
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+  const onTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setTabIndex(newValue);
   };
 
@@ -134,7 +150,7 @@ function ExperienceSection() {
     <div className="experienceSection">
       <h1>Streamline Studios</h1>
       <div className="timeline" onMouseEnter={onTimelineHover}>
-        {bShowYears ? yearsOfExperience : timelineLabel}
+        {timelineLabel}
       </div>
       <div>
         {promotionTrack}
@@ -144,7 +160,7 @@ function ExperienceSection() {
       </div>
       <div className="carousel">
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <Tabs value={tabIndex} onChange={handleChange} aria-label="basic tabs example">
+          <Tabs value={tabIndex} onChange={onTabChange} aria-label="basic tabs example" centered>
             <Tab label="AAA METAVERSE" {...TabProps(0)} wrapped />
             <Tab label="DIGITAL TWIN" {...TabProps(1)} />
             <Tab label="AR PRODUCT" {...TabProps(2)} />
@@ -166,6 +182,19 @@ function ExperienceSection() {
 }
 
 export default function PortfolioPage() {
+  const [readMode, setReadMode] = useState(ReadMode.Normal);
+
+  const onReadModeChange = (event: React.SyntheticEvent, newValue: number) => {
+    setReadMode(newValue);
+  };
+
+  function OnReadModeChange(mode: ReadMode) {
+    return {
+      id: `simple-tab-${mode}`,
+      'aria-controls': `simple-tabpanel-${mode}`,
+    };
+  }
+
   return (
     <div className="mainContainer">
       <div className="disclaimer">
@@ -204,6 +233,15 @@ export default function PortfolioPage() {
       <h1 className="headerTitle" style={{ fontSize: 25 }}>
         === {`{`} PROFESSIONAL EXPERIENCES {`}`} ===
       </h1>
-      <ExperienceSection />
+      <div className="readModeTab">
+        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+          <Tabs value={readMode} onChange={onReadModeChange} aria-label="basic tabs example" centered>
+            <Tab label="Normal" {...OnReadModeChange(0)} />
+            <Tab label="TLDR" {...OnReadModeChange(1)} />
+          </Tabs>
+        </Box>
+      </div>
+      <ExperienceSection readMode={readMode} />
+
     </div>);
 }
