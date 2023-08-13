@@ -61,12 +61,24 @@ function Introduction() {
         <p>
           Hi there! I'm a passionate game developer in design, writing and programming.
           I am very dedicated to game design, architecture and development,
-          and always strive to create high-quality work.
+          and always strive to create high-quality work. In my free time, you can find
+          me toiling away with worldbuilding and narrative design. All that led me to a
+          life of programming, for some reason.
+        </p>
+        <p>
+          I also volunteer as a chapter associate for IGDA Malaysia. I do networking events,
+          workshops, game jams and generally open to any community-building events. If I don't
+          host it, I frequent it. See you at LevelUp KL!
         </p>
         <p>
           I am always eagerto learn and grow,
           so I'm always open to more opportunities for so.
           Talk to me to find out more about my passions!
+          (Hopefully I can implement a section below for that)
+        </p>
+        <p>
+          Write an email to me!<br />
+          <i>magthylius@gmail.com</i>
         </p>
       </div>
       <ResumeButton />
