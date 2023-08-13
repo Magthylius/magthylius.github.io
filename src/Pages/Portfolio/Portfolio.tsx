@@ -68,17 +68,20 @@ function Introduction() {
         <p>
           I also volunteer as a chapter associate for IGDA Malaysia. I do networking events,
           workshops, game jams and generally open to any community-building events. If I don't
-          host it, I frequent it. See you at LevelUp KL!
+          host it, I hope to frequent it. See you at LevelUp KL!
         </p>
         <p>
-          I am always eagerto learn and grow,
+          I am always eager to learn and grow,
           so I'm always open to more opportunities for so.
           Talk to me to find out more about my passions!
           (Hopefully I can implement a section below for that)
         </p>
         <p>
-          Write an email to me!<br />
-          <i>magthylius@gmail.com</i>
+          Contact me:<br />
+          <i>
+            magthylius@gmail.com<br />
+            <a href="https://www.linkedin.com/in/jonathantangziyi/">LinkedIn</a>
+          </i>
         </p>
       </div>
       <ResumeButton />
