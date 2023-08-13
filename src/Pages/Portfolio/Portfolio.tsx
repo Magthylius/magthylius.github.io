@@ -1,4 +1,4 @@
-import { HeaderTitle } from "../../Components/Common/TitleComponents";
+import { HeaderTitle, CustomTabPanel } from "../../Components/Common/TitleComponents";
 import Slider, { Settings } from "react-slick"
 import { ReactComponent as UnitySVG } from '../../Graphics/Engines/unity.svg'
 import { ReactComponent as UnrealSVG } from '../../Graphics/Engines/ue.svg'
@@ -6,6 +6,8 @@ import { ReactComponent as UnrealSVG } from '../../Graphics/Engines/ue.svg'
 import "./Portfolio.styles.scss"
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
+import { Box, Tab, Tabs } from "@mui/material";
+import { useState } from "react";
 
 const PlaceholderImagePath = "Assets/Graphics/placeholder.png";
 
@@ -83,6 +85,19 @@ function ExperienceSection() {
   const timelineLabel = "OCT 2021 - CURRENT";
   const yearsOfExperience = "2 YEARS OF EXPERIENCE";
 
+  const [value, setValue] = useState(0);
+
+  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+    setValue(newValue);
+  };
+
+  function a11yProps(index: number) {
+    return {
+      id: `simple-tab-${index}`,
+      'aria-controls': `simple-tabpanel-${index}`,
+    };
+  }
+
   const onTimelineHover = () => {
     bShowYears = true;
   }
@@ -102,6 +117,22 @@ function ExperienceSection() {
         Description
       </div>
       <div className="carousel">
+        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+          <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+            <Tab label="AAA METAVERSE" {...a11yProps(0)} wrapped />
+            <Tab label="DIGITAL TWIN" {...a11yProps(1)} />
+            <Tab label="AR PRODUCT" {...a11yProps(2)} />
+          </Tabs>
+        </Box>
+        <CustomTabPanel value={value} index={0}>
+          Item One
+        </CustomTabPanel>
+        <CustomTabPanel value={value} index={1}>
+          Item Two
+        </CustomTabPanel>
+        <CustomTabPanel value={value} index={2}>
+          Item Three
+        </CustomTabPanel>
         <ShowcaseCarousel content={imagesMap} />
       </div>
     </div>

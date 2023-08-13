@@ -6,6 +6,7 @@
   overflow-y: auto;
   height: 89vh;
   width: 100vw;
+  font-family: $bodyFont;
 }
 
 .disclaimer {
@@ -73,13 +74,16 @@
 }
 
 .experienceSection {
+  margin: auto;
+  width: 600px;
+
   h1 {
     color: $accentColor;
     margin: 0px;
   }
 
   img {
-    width: 400px;
+    width: 600px;
     height: 300px;
   }
 
@@ -93,7 +97,7 @@
   }
 
   .carousel {
-    width: 400px;
+    width: 600px;
     margin: auto;
   }
 }
