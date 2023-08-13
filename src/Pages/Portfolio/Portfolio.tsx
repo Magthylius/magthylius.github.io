@@ -1,4 +1,4 @@
-import { HeaderTitle, CustomTabPanel } from "../../Components/Common/TitleComponents";
+import { CustomTabPanel } from "../../Components/Common/TitleComponents";
 import Slider, { Settings } from "react-slick"
 import { ReactComponent as UnitySVG } from '../../Graphics/Engines/unity.svg'
 import { ReactComponent as UnrealSVG } from '../../Graphics/Engines/ue.svg'
@@ -49,7 +49,16 @@ function Introduction() {
   return (
     <div>
       <div className="intro">
-        Hi there! I'm a passionate game developer in design, writing and programming. I am very dedicated to game design, architecture and development, and always strive to create high-quality work.
+        <p>
+          Hi there! I'm a passionate game developer in design, writing and programming.
+          I am very dedicated to game design, architecture and development,
+          and always strive to create high-quality work.
+        </p>
+        <p>
+          I am always eagerto learn and grow,
+          so I'm always open to more opportunities for so.
+          Talk to me to find out more about my passions!
+        </p>
       </div>
       <ResumeButton />
     </div>);
@@ -84,14 +93,28 @@ function ExperienceSection() {
   let bShowYears = false;
   const timelineLabel = "OCT 2021 - CURRENT";
   const yearsOfExperience = "2 YEARS OF EXPERIENCE";
+  const promotionTrack = "Junior Game Progammer → Game Programmer"
+  const description =
+    <div>
+      <p>
+        Throughout my tenure, I've demonstrated a natural aptitude for leadership and a proactive
+        approach to project involvement. In challenging times, I proactively provide supprt to fellow
+        developers and took intiative to guide newcomers on navigating the codebase.
+        Regularly engaging in discussions about structural design, I've contributed to the creation
+        of many streamlined and accessible systems benefitting the entire team.
+        Notably, I've authored and developed numerous foundational systems in my projects,
+        taking pride in iterative improvements that have established a strong and customizable
+        foundation for our team's ongoing development efforts.
+      </p>
+    </div>
 
-  const [value, setValue] = useState(0);
+  const [tabIndex, setTabIndex] = useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
+    setTabIndex(newValue);
   };
 
-  function a11yProps(index: number) {
+  function TabProps(index: number) {
     return {
       id: `simple-tab-${index}`,
       'aria-controls': `simple-tabpanel-${index}`,
@@ -113,24 +136,27 @@ function ExperienceSection() {
       <div className="timeline" onMouseEnter={onTimelineHover}>
         {bShowYears ? yearsOfExperience : timelineLabel}
       </div>
+      <div>
+        {promotionTrack}
+      </div>
       <div className="description">
-        Description
+        {description}
       </div>
       <div className="carousel">
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-            <Tab label="AAA METAVERSE" {...a11yProps(0)} wrapped />
-            <Tab label="DIGITAL TWIN" {...a11yProps(1)} />
-            <Tab label="AR PRODUCT" {...a11yProps(2)} />
+          <Tabs value={tabIndex} onChange={handleChange} aria-label="basic tabs example">
+            <Tab label="AAA METAVERSE" {...TabProps(0)} wrapped />
+            <Tab label="DIGITAL TWIN" {...TabProps(1)} />
+            <Tab label="AR PRODUCT" {...TabProps(2)} />
           </Tabs>
         </Box>
-        <CustomTabPanel value={value} index={0}>
+        <CustomTabPanel value={tabIndex} index={0}>
           Item One
         </CustomTabPanel>
-        <CustomTabPanel value={value} index={1}>
+        <CustomTabPanel value={tabIndex} index={1}>
           Item Two
         </CustomTabPanel>
-        <CustomTabPanel value={value} index={2}>
+        <CustomTabPanel value={tabIndex} index={2}>
           Item Three
         </CustomTabPanel>
         <ShowcaseCarousel content={imagesMap} />
@@ -175,7 +201,9 @@ export default function PortfolioPage() {
             - Integrated external APIs to facilitate communication with third-party applications<br />
           </div>
         } /> */}
-      <HeaderTitle header="PROFESSIONAL EXPERIENCES" fontSize={25} />
+      <h1 className="headerTitle" style={{ fontSize: 25 }}>
+        === {`{`} PROFESSIONAL EXPERIENCES {`}`} ===
+      </h1>
       <ExperienceSection />
     </div>);
 }
