@@ -258,6 +258,9 @@ export default function PortfolioPage() {
         === {`{`} PROFESSIONAL EXPERIENCES {`}`} ===
       </h1>
       <ExperienceSection readMode={readMode} />
-
+      <h1 className="headerTitle" style={{ fontSize: 25 }}>
+        === {`{`} AWARDS {`}`} ===
+      </h1>
+      <p>WIP!</p>
     </div>);
 }
