@@ -222,9 +222,6 @@ export default function PortfolioPage() {
             - Integrated external APIs to facilitate communication with third-party applications<br />
           </div>
         } /> */}
-      <h1 className="headerTitle" style={{ fontSize: 25 }}>
-        === {`{`} PROFESSIONAL EXPERIENCES {`}`} ===
-      </h1>
       <div className="readModeTab">
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <Tabs value={readMode} onChange={onReadModeChange} aria-label="basic tabs example" centered>
@@ -233,6 +230,9 @@ export default function PortfolioPage() {
           </Tabs>
         </Box>
       </div>
+      <h1 className="headerTitle" style={{ fontSize: 25 }}>
+        === {`{`} PROFESSIONAL EXPERIENCES {`}`} ===
+      </h1>
       <ExperienceSection readMode={readMode} />
 
     </div>);
