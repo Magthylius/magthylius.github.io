@@ -101,8 +101,8 @@ function SkillsetSection(props: ISectionProps) {
 function ExperienceSection(props: IExperienceSectionProps) {
   const { readMode } = props;
 
-  let bShowYears = false;
-  const timelineLabel = readMode === ReadMode.Normal ? "OCT 2021 - CURRENT" : "2 YEARS";
+  const timelineLabel =
+    readMode === ReadMode.Normal ? "OCT 2021 - CURRENT" : "2 YEARS";
   const promotionTrack =
     readMode === ReadMode.Normal ? "Junior Game Progammer → Game Programmer" : "Junior → Mid-Level Programmer";
   const description =
@@ -137,10 +137,6 @@ function ExperienceSection(props: IExperienceSectionProps) {
     };
   }
 
-  const onTimelineHover = () => {
-    bShowYears = true;
-  }
-
   const images: string[] = [PlaceholderImagePath, PlaceholderImagePath];
   const imagesMap = images.map((imagePath, index) => {
     return <img src={imagePath} alt={index.toString()} className="displays" />
@@ -149,12 +145,8 @@ function ExperienceSection(props: IExperienceSectionProps) {
   return (
     <div className="experienceSection">
       <h1>Streamline Studios</h1>
-      <div className="timeline" onMouseEnter={onTimelineHover}>
-        {timelineLabel}
-      </div>
-      <div>
-        {promotionTrack}
-      </div>
+      <div className="timeline">{timelineLabel}</div>
+      <div className="promotionTrack">{promotionTrack}</div>
       <div className="description">
         {description}
       </div>
