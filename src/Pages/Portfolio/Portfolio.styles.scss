@@ -116,3 +116,41 @@
     margin: auto;
   }
 }
+
+.awardsList {
+  width: 400px;
+  margin: auto;
+
+  .display {
+    padding-bottom: 20px;
+
+    .header {
+      font-size: 30px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .headline {
+      font-style: oblique;
+      padding-bottom: 10px;
+      color: $secondaryColor
+    }
+
+    .awards {
+      //color: $secondaryColor
+    }
+
+    a {
+      text-decoration: none;
+      flex-grow: 2;
+      font: $bodyFont;
+      color: $primaryColor;
+    }
+
+    a:hover {
+      color: $primaryColorShaded;
+    }
+  }
+
+
+}

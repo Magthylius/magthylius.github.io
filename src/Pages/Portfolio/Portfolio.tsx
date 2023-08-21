@@ -228,6 +228,89 @@ function ExperienceSection(props: IExperienceSectionProps) {
   );
 }
 
+interface ISpacerProps {
+  padding: number;
+}
+
+function Spacer(props: ISpacerProps) {
+  return (
+    <div style={{ paddingTop: props.padding, }}>
+
+    </div>
+  );
+}
+
+function AwardsSection() {
+  const Display = (header: string, link: string, headline: string, awards: string[]) => {
+    const awardlist = awards.map((value, index) => { return (<div>{value}<br /></div>) })
+    return (
+      <div className="display">
+        <div className="header"><a href={link} target="_blank">{header}</a></div>
+        <div className="headline">{headline}</div>
+        <div className="awards">
+          {awardlist}
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      <p>This section is still WIP. Click the names for links. Will be adding styles and pictures later!</p>
+      <div className="awardsList">
+        {
+          Display(
+            "Hadal",
+            "https://magthylius.itch.io/hadal",
+            "Final Year Project",
+            ["Gold & Best Award at SIGG 2021", "Finalist for SEA Games Award", "Finalist for APICTA Award"]
+          )
+        }
+      </div>
+      <div className="awardsList">
+        {
+          Display(
+            "Feylines",
+            "https://magthylius.itch.io/feylines",
+            "Game Jam / Side Project",
+            ["GameJam+ 2020: Best Asian Game", "GameJam+ 2020: Best Pitch"]
+          )
+        }
+      </div>
+      <div className="awardsList">
+        {
+          Display(
+            "SurvEye",
+            "https://uowmgames.itch.io/surveye",
+            "Student Project",
+            ["SIGG 2020: Gold Medalist"]
+          )
+        }
+      </div>
+      <div className="awardsList">
+        {
+          Display(
+            "Xenotize",
+            "https://magthylius.itch.io/xenotize",
+            "Game Jam",
+            ["Core Student UpSync Hackathon: Best Art + People’s Choice Awards"]
+          )
+        }
+      </div>
+      <div className="awardsList">
+        {
+          Display(
+            "Remembrance",
+            "https://magthylius.itch.io/remembrance",
+            "Game Jam",
+            ["Global Game Jam + Core Game Jam 2020: First place"]
+          )
+        }
+      </div>
+    </div>
+  );
+}
+
 export default function PortfolioPage() {
   const [readMode, setReadMode] = useState(ReadMode.Normal);
 
@@ -289,9 +372,11 @@ export default function PortfolioPage() {
         === {`{`} PROFESSIONAL EXPERIENCES {`}`} ===
       </h1>
       <ExperienceSection readMode={readMode} />
+      <Spacer padding={50} />
       <h1 className="headerTitle" style={{ fontSize: 25 }}>
         === {`{`} AWARDS {`}`} ===
       </h1>
-      <p>WIP!</p>
+      <AwardsSection />
+      <Spacer padding={150} />
     </div>);
 }
