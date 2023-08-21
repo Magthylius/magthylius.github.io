@@ -240,6 +240,41 @@ function Spacer(props: ISpacerProps) {
   );
 }
 
+function VolunteeringSection() {
+  return (
+    <div>
+      <div>
+        I have a passion for community building and connecting with people. <br />
+        This section is still WIP. Will be adding styles and pictures later!
+      </div>
+      <div>
+        <h2>IGDA Malaysia</h2>
+        <div>
+          <b>Executive Chapter Associate</b>
+        </div>
+        <div>
+          I volunteer as a  in IGDA Malaysia and help
+          build communities, host events, and connect people in the game development industry. <br />
+          My goal is to mature the industry of Malaysia, and use our diversity to push South East Asia
+          as the next major hub of game development! <br />Reducing bar of entry and improving the accessibility
+          of the industry is my current priority to attain fresh talent from apsiring developers.
+        </div>
+      </div>
+      <div>
+        <h2>Global Game Jam Malaysia</h2>
+        <div>
+          <b>Organizer</b>
+        </div>
+        <div>
+          Every January I co-organize Global Game Jam for Malaysian participants to get in on the fun. <br />
+          I started out my path on GGJ, so I would like to give back the community and aspire more game
+          developers to start out.
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function AwardsSection() {
   const Display = (header: string, link: string, headline: string, awards: string[]) => {
     const awardlist = awards.map((value, index) => { return (<div>{value}<br /></div>) })
@@ -256,7 +291,7 @@ function AwardsSection() {
 
   return (
     <div>
-      <p>This section is still WIP. Click the names for links. Will be adding styles and pictures later!</p>
+      <p>Click the names for links. This section is still WIP. Will be adding styles and pictures later!</p>
       <div className="awardsList">
         {
           Display(
@@ -368,11 +403,19 @@ export default function PortfolioPage() {
           </Tabs>
         </Box>
       </div>
+
       <h1 className="headerTitle" style={{ fontSize: 25 }}>
         === {`{`} PROFESSIONAL EXPERIENCES {`}`} ===
       </h1>
       <ExperienceSection readMode={readMode} />
       <Spacer padding={50} />
+
+      <h1 className="headerTitle" style={{ fontSize: 25 }}>
+        === {`{`} VOLUNTEERING {`}`} ===
+      </h1>
+      <VolunteeringSection />
+      <Spacer padding={50} />
+
       <h1 className="headerTitle" style={{ fontSize: 25 }}>
         === {`{`} AWARDS {`}`} ===
       </h1>
