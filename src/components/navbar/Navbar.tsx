@@ -8,9 +8,9 @@ const Navbar = () => {
         <Link to="/" className="nav-link">
           <button className="nav-button">Home</button>
         </Link>
-        <Link to="/portfolio" className="nav-link">
+        {/* <Link to="/portfolio" className="nav-link">
           <button className="nav-button">Portfolio</button>
-        </Link>
+        </Link> */}
         <Link to="/tictactoe" className="nav-link">
           <button className="nav-button">TicTacToe</button>
         </Link>
