@@ -173,26 +173,54 @@ function ExperienceSection(props: IExperienceSectionProps) {
           </Tabs>
         </Box>
         <CustomTabPanel value={tabIndex} index={0}>
-          This is an undisclosed project, expected to be announced in September 2023.
-          Can't talk much about it unfortunately.
+          <b>This is an undisclosed project, expected to be announced in 2023.</b>
           <p>
-            KEY RESPONSIBILITIES<br />
-            Foundational, Networking, UI, Gameplay, Porting
+            AAA metaverse project that is co-developed with a major international company. Intended for a massive
+            audience with live content support and major collaborations.
           </p>
+          <p>
+            Built the program foundation, and was critical to the backbone structure of the program.
+            Developed the multiplayer foundation, both before and after the platform port, using
+            transport systems and node package systems.
+            Authored the UI, input, gameplay framework systems, high involvement in project in terms of
+            development. Established coding conventions and standards for the team.
+          </p>
+          <p><i>
+            <b>KEY RESPONSIBILITIES</b><br />
+            Foundational, Networking, UI, Gameplay, Platform Porting
+          </i></p>
         </CustomTabPanel>
         <CustomTabPanel value={tabIndex} index={1}>
-          This is an undisclosed project. Can't talk much about it unfortunately.
+          <b>This is an undisclosed project, no disclosure expectancy.</b>
           <p>
-            KEY RESPONSIBILITIES<br />
-            Foundational, Networking, UI
+            Digital twin program that visualizes processess, resources, and usages of selected projects.
+            Ability to scroll time and strategize resource allocation and facilitate human resources.
+            Real-time simulation of said process with realistic visual fidelity.
           </p>
+          <p>
+            Built the program foundation, and was critical to the backbone structure of the program.
+            Authored the UI system and built foundational system on networking handling.
+          </p>
+          <p><i>
+            <b>KEY RESPONSIBILITIES</b><br />
+            Foundational, Networking, UI
+          </i></p>
         </CustomTabPanel>
         <CustomTabPanel value={tabIndex} index={2}>
-          This is an undisclosed project. Can't talk much about it unfortunately.
+          <b>This is an undisclosed project, no disclosure expectancy.</b>
           <p>
-            KEY RESPONSIBILITIES<br />
-            Foundational, Technical Art, UI
+            Augmented reality program that is meant to be deployed on relevant platform with concurrent
+            connections with variations of said program in different devices. Provides simulated education
+            experience in a professional capacity.
           </p>
+          <p>
+            Stability restructurement and gameplay programming. Wrote shaders for custom implementation on both
+            2D and 3D space. Authored the UI systems and improved cross-platform synchronization.
+          </p>
+          <p><i>
+            <b>KEY RESPONSIBILITIES</b><br />
+            Foundational, Technical Art, UI
+          </i></p>
         </CustomTabPanel>
         <ShowcaseCarousel content={imagesMap} />
       </div>
@@ -217,7 +245,7 @@ export default function PortfolioPage() {
   return (
     <div className="mainContainer">
       <div className="disclaimer">
-        THIS PAGE IS STILL WIP!
+        THIS PAGE IS STILL WIP :(
       </div>
       <Introduction />
       {/* <HeaderTitle header={"TECHNICAL SKILLSETS"} fontSize={25} />
